@@ -18,6 +18,10 @@ class Developer(models.Model):
         on_delete=models.CASCADE,
         help_text="The owner of developer account",
     )
+    image = models.ImageField(
+        upload_to="images/developers/",
+        help_text="Developer profile photo",
+    )
     name = models.CharField(
         max_length=64,
         unique=True,

@@ -67,6 +67,10 @@ class App(models.Model):
         blank=True,
         help_text="App description",
     )
+    file = models.FileField(
+        upload_to="apps/",
+        help_text="App package",
+    )
     size = models.FloatField(
         default=0.0,
         help_text="Download size in MBs",
@@ -107,6 +111,11 @@ class App(models.Model):
         blank=True,
         help_text="What is new?",
     )
+    privacy_policy = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Privacy policy",
+    )
     released_at = models.DateTimeField(
         auto_now_add=True,
         help_text="Release date",
@@ -121,7 +130,7 @@ class App(models.Model):
         help_text="App website",
     )
     # Platform that the app is built for
-    platform = models.ManyToManyField(
+    platforms = models.ManyToManyField(
         "platforms.Platform",
         help_text="App platforms",
     )
@@ -137,17 +146,24 @@ class App(models.Model):
         "Permission",
         help_text="App Permissions",
     )
-    privacy_policy = models.TextField(
-        null=True,
-        blank=True,
-        help_text="Privacy policy",
+    installs = models.ManyToManyField(
+        User,
+        through="Install",
+        related_name="installs",
+        help_text="App Installs",
+    )
+    views = models.ManyToManyField(
+        User,
+        through="View",
+        related_name="views",
+        help_text="App Views",
     )
 
     def __str__(self):
         return self.name
 
 
-class Screenshots(models.Model):
+class Screenshot(models.Model):
     """App screenshots"""
 
     # The app
