@@ -6,16 +6,6 @@ from appverse.apps.models import Permission, App, Screenshot
 
 
 # Create your serializers here.
-class PermissionSerializer(HyperlinkedModelSerializer):
-    """Screenshot serializer"""
-
-    class Meta:
-        """Meta data"""
-
-        model = Permission
-        fields = ["id", "url", "name", "description", "created_at", "updated_att"]
-
-
 class AppSerializer(HyperlinkedModelSerializer):
     """App serializer"""
 
@@ -59,3 +49,13 @@ class ScreenshotSerializer(HyperlinkedModelSerializer):
 
         model = Screenshot
         fields = ["id", "url", "image", "description", "created_at", "updated_at"]
+
+
+class PermissionSerializer(HyperlinkedModelSerializer):
+    """Screenshot serializer"""
+
+    class Meta:
+        """Meta data"""
+
+        model = Permission
+        fields = ["id", "url", "name", "description", "created_at", "updated_att"]

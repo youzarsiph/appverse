@@ -10,27 +10,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class Permission(models.Model):
-    """Permissions required by the app"""
-
-    name = models.CharField(
-        max_length=32,
-        unique=True,
-        db_index=True,
-        help_text="Permission name",
-    )
-    description = models.TextField(
-        null=True,
-        blank=True,
-        help_text="Permission description",
-    )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self) -> str:
-        return self.name
-
-
 class App(models.Model):
     """Apps"""
 
@@ -42,7 +21,7 @@ class App(models.Model):
     )
     icon = models.ImageField(
         help_text="App icon",
-        upload_to="images/covers/",
+        upload_to="images/icons/",
     )
     cover = models.ImageField(
         null=True,
@@ -68,7 +47,7 @@ class App(models.Model):
         help_text="App description",
     )
     file = models.FileField(
-        upload_to="apps/",
+        upload_to="images/apps/",
         help_text="App package",
     )
     size = models.FloatField(
@@ -174,7 +153,7 @@ class Screenshot(models.Model):
     )
     image = models.ImageField(
         help_text="App screen",
-        upload_to="images/screens/",
+        upload_to="images/screenshots/",
     )
     description = models.CharField(
         max_length=256,
@@ -238,3 +217,24 @@ class View(models.Model):
         ],
     )
     viewed_at = models.DateTimeField(auto_now_add=True)
+
+
+class Permission(models.Model):
+    """Permissions required by the app"""
+
+    name = models.CharField(
+        max_length=32,
+        unique=True,
+        db_index=True,
+        help_text="Permission name",
+    )
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Permission description",
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name
