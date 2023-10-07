@@ -1,2 +1,3 @@
-# appverse
-A universe for apps
+# AppVerse
+
+A universe for apps.
