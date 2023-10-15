@@ -26,8 +26,6 @@ class Review(models.Model):
     )
     comment = models.CharField(
         max_length=256,
-        null=True,
-        blank=True,
         help_text="App review",
     )
     rating = models.PositiveSmallIntegerField(

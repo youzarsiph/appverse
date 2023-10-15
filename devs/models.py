@@ -33,8 +33,6 @@ class Developer(models.Model):
         help_text="Developer headline",
     )
     description = models.TextField(
-        null=True,
-        blank=True,
         help_text="Description",
     )
     approved = models.BooleanField(

@@ -7,10 +7,10 @@ from appverse.reports.views import ReportViewSet
 
 
 # Create your patterns here.
-router = DefaultRouter(trailing_slash=False)
+router = DefaultRouter()
 router.register("reports", ReportViewSet, "report")
 
 
 urlpatterns = [
-    path("reports/", include(router.urls)),
+    path("", include(router.urls)),
 ]

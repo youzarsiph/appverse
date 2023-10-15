@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.reviews """
 
 
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from appverse.reviews.models import Review
 
 
 # Create your serializers here.
-class ReviewSerializer(HyperlinkedModelSerializer):
+class ReviewSerializer(ModelSerializer):
     """Review serializer"""
 
     class Meta:
@@ -15,9 +15,7 @@ class ReviewSerializer(HyperlinkedModelSerializer):
         model = Review
         fields = [
             "id",
-            "url",
             "user",
-            "app",
             "comment",
             "rating",
             "reviewed_at",

@@ -16,8 +16,6 @@ class Category(models.Model):
     )
     description = models.CharField(
         max_length=256,
-        null=True,
-        blank=True,
         help_text="Category description",
     )
     updated_at = models.DateTimeField(auto_now=True)

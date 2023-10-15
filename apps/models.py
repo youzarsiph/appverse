@@ -2,7 +2,6 @@
 
 
 from django.db import models
-from django.core import validators
 from django.contrib.auth import get_user_model
 
 
@@ -46,13 +45,17 @@ class App(models.Model):
         blank=True,
         help_text="App description",
     )
-    file = models.FileField(
-        upload_to="images/apps/",
-        help_text="App package",
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text="App description",
     )
-    size = models.FloatField(
-        default=0.0,
-        help_text="Download size in MBs",
+    price = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="App price (if it's paid)",
     )
     paid = models.BooleanField(
         default=False,
@@ -81,27 +84,8 @@ class App(models.Model):
             (18, "Rated 18+"),
         ],
     )
-    version = models.FloatField(
-        default=0.1,
-        help_text="App Version",
-    )
-    updates = models.TextField(
-        null=True,
-        blank=True,
-        help_text="What is new?",
-    )
     privacy_policy = models.TextField(
-        null=True,
-        blank=True,
         help_text="Privacy policy",
-    )
-    released_at = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Release date",
-    )
-    updated_at = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Last update",
     )
     website = models.URLField(
         null=True,
@@ -111,6 +95,7 @@ class App(models.Model):
     # Platform that the app is built for
     platforms = models.ManyToManyField(
         "platforms.Platform",
+        through="PlatformApp",
         help_text="App platforms",
     )
     tags = models.ManyToManyField(
@@ -122,7 +107,7 @@ class App(models.Model):
         help_text="App Categories",
     )
     permissions = models.ManyToManyField(
-        "Permission",
+        "perms.Permission",
         help_text="App Permissions",
     )
     installs = models.ManyToManyField(
@@ -137,9 +122,66 @@ class App(models.Model):
         related_name="views",
         help_text="App Views",
     )
+    released_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Release date",
+    )
+    updated_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Last update",
+    )
 
     def __str__(self):
         return self.name
+
+
+class PlatformApp(models.Model):
+    """App's executable for a platform"""
+
+    app = models.ForeignKey(
+        App,
+        on_delete=models.CASCADE,
+        help_text="The app",
+    )
+    platform = models.ForeignKey(
+        "platforms.Platform",
+        on_delete=models.CASCADE,
+        help_text="The platform",
+    )
+    version = models.CharField(
+        max_length=8,
+        default="0.00",
+        help_text="App Version",
+    )
+    file = models.FileField(
+        upload_to="apps/",
+        help_text="App's executable",
+    )
+    updates = models.TextField(
+        help_text="What is new?",
+    )
+    size = models.FloatField(
+        default=0.0,
+        help_text="Download size in MBs",
+    )
+    released_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Release date",
+    )
+    updated_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Last update",
+    )
+
+    class Meta:
+        """Meta data"""
+
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_app_platform",
+                fields=["app", "platform"],
+            )
+        ]
 
 
 class Screenshot(models.Model):
@@ -184,13 +226,19 @@ class Install(models.Model):
     count = models.PositiveIntegerField(
         default=1,
         help_text="Install count",
-        validators=[
-            validators.MinValueValidator(
-                0, "Ensure that this field is greater than or equal to 0."
-            )
-        ],
     )
     installed_at = models.DateTimeField(auto_now_add=True)
+    reinstalled_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """Meta data"""
+
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_install_app_user",
+                fields=["app", "user"],
+            )
+        ]
 
 
 class View(models.Model):
@@ -210,31 +258,16 @@ class View(models.Model):
     count = models.PositiveIntegerField(
         default=1,
         help_text="View count",
-        validators=[
-            validators.MinValueValidator(
-                0, "Ensure that this field is greater than or equal to 0."
-            )
-        ],
     )
     viewed_at = models.DateTimeField(auto_now_add=True)
+    reviewed_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        """Meta data"""
 
-class Permission(models.Model):
-    """Permissions required by the app"""
-
-    name = models.CharField(
-        max_length=32,
-        unique=True,
-        db_index=True,
-        help_text="Permission name",
-    )
-    description = models.TextField(
-        null=True,
-        blank=True,
-        help_text="Permission description",
-    )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self) -> str:
-        return self.name
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_view_app_user",
+                fields=["app", "user"],
+            )
+        ]

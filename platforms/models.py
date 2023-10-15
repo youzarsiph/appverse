@@ -16,8 +16,6 @@ class Platform(models.Model):
     )
     description = models.CharField(
         max_length=256,
-        null=True,
-        blank=True,
         help_text="Platform description",
     )
     updated_at = models.DateTimeField(auto_now=True)

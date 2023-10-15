@@ -7,10 +7,10 @@ from appverse.devs.views import DeveloperViewSet
 
 
 # Create your patterns here.
-router = DefaultRouter(trailing_slash=False)
+router = DefaultRouter()
 router.register("developers", DeveloperViewSet, "developer")
 
 
 urlpatterns = [
-    path("developers/", include(router.urls)),
+    path("", include(router.urls)),
 ]

@@ -1,18 +1,21 @@
 """ Serializers for AppVerse.apps """
 
 
-from rest_framework.serializers import HyperlinkedModelSerializer
-from appverse.apps.models import Permission, App, Screenshot
+from rest_framework.serializers import ModelSerializer
+from appverse.apps.models import App, PlatformApp, Screenshot
 
 
 # Create your serializers here.
-class AppSerializer(HyperlinkedModelSerializer):
+class AppSerializer(ModelSerializer):
     """App serializer"""
 
     class Meta:
         """Meta data"""
 
+        depth = 1
         model = App
+        read_only_fields = ["developer"]
+        # extra_kwargs = {}
         fields = [
             "id",
             "url",
@@ -22,13 +25,10 @@ class AppSerializer(HyperlinkedModelSerializer):
             "name",
             "headline",
             "description",
-            "size",
             "paid",
             "purchases",
             "ads",
             "restrictions",
-            "version",
-            "updates",
             "released_at",
             "updated_at",
             "website",
@@ -37,11 +37,31 @@ class AppSerializer(HyperlinkedModelSerializer):
             "categories",
             "permissions",
             "privacy_policy",
-            "privacy_policy",
+            "screenshot_set",
         ]
 
 
-class ScreenshotSerializer(HyperlinkedModelSerializer):
+class PlatformAppSerializer(ModelSerializer):
+    """Screenshot serializer"""
+
+    class Meta:
+        """Meta data"""
+
+        depth = 1
+        model = PlatformApp
+        fields = [
+            "id",
+            "platform",
+            "version",
+            "file",
+            "updates",
+            "size",
+            "released_at",
+            "updated_at",
+        ]
+
+
+class ScreenshotSerializer(ModelSerializer):
     """Screenshot serializer"""
 
     class Meta:
@@ -49,13 +69,3 @@ class ScreenshotSerializer(HyperlinkedModelSerializer):
 
         model = Screenshot
         fields = ["id", "url", "image", "description", "created_at", "updated_at"]
-
-
-class PermissionSerializer(HyperlinkedModelSerializer):
-    """Screenshot serializer"""
-
-    class Meta:
-        """Meta data"""
-
-        model = Permission
-        fields = ["id", "url", "name", "description", "created_at", "updated_att"]

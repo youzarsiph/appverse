@@ -24,9 +24,7 @@ class Report(models.Model):
     )
     comment = models.CharField(
         max_length=256,
-        null=True,
-        blank=True,
-        help_text="Report comment",
+        help_text="What is the problem?",
     )
     updated_at = models.DateTimeField(auto_now=True)
     reported_at = models.DateTimeField(auto_now_add=True)

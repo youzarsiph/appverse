@@ -7,10 +7,10 @@ from appverse.categories.views import CategoryViewSet
 
 
 # Create your patterns here.
-router = DefaultRouter(trailing_slash=False)
+router = DefaultRouter()
 router.register("categories", CategoryViewSet, "category")
 
 
 urlpatterns = [
-    path("categories/", include(router.urls)),
+    path("", include(router.urls)),
 ]

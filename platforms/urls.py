@@ -7,10 +7,10 @@ from appverse.platforms.views import PlatformViewSet
 
 
 # Create your patterns here.
-router = DefaultRouter(trailing_slash=False)
+router = DefaultRouter()
 router.register("platforms", PlatformViewSet, "platform")
 
 
 urlpatterns = [
-    path("platforms/", include(router.urls)),
+    path("", include(router.urls)),
 ]

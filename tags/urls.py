@@ -7,10 +7,10 @@ from appverse.tags.views import TagViewSet
 
 
 # Create your patterns here.
-router = DefaultRouter(trailing_slash=False)
+router = DefaultRouter()
 router.register("tags", TagViewSet, "tag")
 
 
 urlpatterns = [
-    path("tags/", include(router.urls)),
+    path("", include(router.urls)),
 ]

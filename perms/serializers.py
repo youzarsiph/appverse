@@ -1,16 +1,16 @@
-""" Serializers for AppVerse.platforms """
+""" Serializers for AppVerse.perms """
 
 
 from rest_framework.serializers import ModelSerializer
-from appverse.platforms.models import Platform
+from appverse.perms.models import Permission
 
 
 # Create your serializers here.
-class PlatformSerializer(ModelSerializer):
-    """Platform serializer"""
+class PermissionSerializer(ModelSerializer):
+    """Screenshot serializer"""
 
     class Meta:
         """Meta data"""
 
-        model = Platform
+        model = Permission
         fields = ["id", "url", "name", "description", "created_at", "updated_at"]
