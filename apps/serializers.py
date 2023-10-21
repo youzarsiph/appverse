@@ -12,10 +12,8 @@ class AppSerializer(ModelSerializer):
     class Meta:
         """Meta data"""
 
-        depth = 1
         model = App
         read_only_fields = ["developer"]
-        # extra_kwargs = {}
         fields = [
             "id",
             "url",
@@ -31,13 +29,26 @@ class AppSerializer(ModelSerializer):
             "restrictions",
             "released_at",
             "updated_at",
+        ]
+
+
+class DetailedAppSerializer(AppSerializer):
+    """App serializer with more details"""
+
+    class Meta(AppSerializer.Meta):
+        """Meta data"""
+
+        # depth = 1
+        model = App
+        read_only_fields = ["developer"]
+        fields = AppSerializer.Meta.fields + [
             "website",
+            "privacy_policy",
             "platforms",
             "tags",
             "categories",
             "permissions",
-            "privacy_policy",
-            "screenshot_set",
+            "screenshots",
         ]
 
 
@@ -47,7 +58,6 @@ class PlatformAppSerializer(ModelSerializer):
     class Meta:
         """Meta data"""
 
-        depth = 1
         model = PlatformApp
         fields = [
             "id",
@@ -68,4 +78,4 @@ class ScreenshotSerializer(ModelSerializer):
         """Meta data"""
 
         model = Screenshot
-        fields = ["id", "url", "image", "description", "created_at", "updated_at"]
+        fields = ["id", "platform", "image", "description", "created_at", "updated_at"]

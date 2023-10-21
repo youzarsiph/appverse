@@ -24,3 +24,10 @@ class IsAppOwner(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return request.user.developer == obj.developer
+
+
+class IsAppObjectOwner(BasePermission):
+    """Check if the current logged in user is the owner of the app"""
+
+    def has_object_permission(self, request, view, obj):
+        return request.user.developer == obj.app.developer

@@ -20,13 +20,13 @@ class App(models.Model):
     )
     icon = models.ImageField(
         help_text="App icon",
-        upload_to="images/icons/",
+        upload_to="images/apps/icons/",
     )
     cover = models.ImageField(
         null=True,
         blank=True,
         help_text="App cover",
-        upload_to="images/covers/",
+        upload_to="images/apps/covers/",
     )
     name = models.CharField(
         max_length=32,
@@ -36,18 +36,9 @@ class App(models.Model):
     )
     headline = models.CharField(
         max_length=256,
-        null=True,
-        blank=True,
         help_text="App headline",
     )
     description = models.TextField(
-        null=True,
-        blank=True,
-        help_text="App description",
-    )
-    description = models.TextField(
-        null=True,
-        blank=True,
         help_text="App description",
     )
     price = models.DecimalField(
@@ -55,11 +46,20 @@ class App(models.Model):
         decimal_places=2,
         null=True,
         blank=True,
-        help_text="App price (if it's paid)",
+        help_text="App price if it's paid",
     )
     paid = models.BooleanField(
         default=False,
         help_text="Designates if the app is paid",
+    )
+    pre_orderable = models.BooleanField(
+        default=False,
+        help_text="Designates if the app is pre-orderable",
+    )
+    release_date = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="App release date if the app is pre-orderable",
     )
     purchases = models.BooleanField(
         default=False,
@@ -183,6 +183,9 @@ class PlatformApp(models.Model):
             )
         ]
 
+    def __str__(self) -> str:
+        return f"{self.app.name} App for {self.platform.name}"
+
 
 class Screenshot(models.Model):
     """App screenshots"""
@@ -191,11 +194,19 @@ class Screenshot(models.Model):
     app = models.ForeignKey(
         App,
         on_delete=models.CASCADE,
+        related_name="screenshots",
         help_text="App",
+    )
+    platform_app = models.ForeignKey(
+        PlatformApp,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="PlatformApp",
     )
     image = models.ImageField(
         help_text="App screen",
-        upload_to="images/screenshots/",
+        upload_to="images/apps/screenshots/",
     )
     description = models.CharField(
         max_length=256,
@@ -224,7 +235,7 @@ class Install(models.Model):
         help_text="Installed by",
     )
     count = models.PositiveIntegerField(
-        default=1,
+        default=0,
         help_text="Install count",
     )
     installed_at = models.DateTimeField(auto_now_add=True)
@@ -239,6 +250,9 @@ class Install(models.Model):
                 fields=["app", "user"],
             )
         ]
+
+    def __str__(self) -> str:
+        return f"{self.app.name} App install by {self.user}"
 
 
 class View(models.Model):
@@ -256,7 +270,7 @@ class View(models.Model):
         help_text="The viewer",
     )
     count = models.PositiveIntegerField(
-        default=1,
+        default=0,
         help_text="View count",
     )
     viewed_at = models.DateTimeField(auto_now_add=True)
@@ -271,3 +285,37 @@ class View(models.Model):
                 fields=["app", "user"],
             )
         ]
+
+    def __str__(self) -> str:
+        return f"{self.app.name} App view by {self.user}"
+
+
+class PreOrder(models.Model):
+    """App pre-orders"""
+
+    # Viewed app
+    app = models.ForeignKey(
+        App,
+        on_delete=models.CASCADE,
+        help_text="Pre-ordered app",
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        help_text="The user that pre-ordered the app",
+    )
+    ordered_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """Meta data"""
+
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_pre_order_app_user",
+                fields=["app", "user"],
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.app.name} App pre-order by {self.user}"

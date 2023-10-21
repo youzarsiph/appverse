@@ -43,4 +43,4 @@ class Review(models.Model):
     reviewed_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f"{self.app.name} App review by {self.user}"

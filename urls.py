@@ -14,7 +14,7 @@ lc_map = {
     "post": "create",
 }
 
-rup_map = {
+rud_map = {
     "put": "update",
     "get": "retrieve",
     "delete": "destroy",
@@ -32,7 +32,7 @@ urlpatterns = [
     ),
     path(
         "apps/<int:id>/platforms/<int:pk>/",
-        views.AppPlatformsViewSet.as_view(rup_map),
+        views.AppPlatformsViewSet.as_view(rud_map),
     ),
     # App Screenshots
     path(
@@ -41,7 +41,15 @@ urlpatterns = [
     ),
     path(
         "apps/<int:id>/screenshots/<int:pk>/",
-        views.AppScreenshotsViewSet.as_view(rup_map),
+        views.AppScreenshotsViewSet.as_view(rud_map),
+    ),
+    path(
+        "apps/<int:id>/platforms/<int:p_id>/screenshots/",
+        views.PlatformAppScreenshotsViewSet.as_view(lc_map),
+    ),
+    path(
+        "apps/<int:id>/platforms/<int:p_id>/screenshots/<int:pk>/",
+        views.PlatformAppScreenshotsViewSet.as_view(rud_map),
     ),
     # App Reports
     path(
@@ -50,7 +58,7 @@ urlpatterns = [
     ),
     path(
         "apps/<int:id>/reports/<int:pk>/",
-        views.AppReportsViewSet.as_view(rup_map),
+        views.AppReportsViewSet.as_view(rud_map),
     ),
     # App Reviews
     path(
@@ -59,7 +67,7 @@ urlpatterns = [
     ),
     path(
         "apps/<int:id>/reviews/<int:pk>/",
-        views.AppReviewsViewSet.as_view(rup_map),
+        views.AppReviewsViewSet.as_view(rud_map),
     ),
     # Developers
     path("", include("appverse.devs.urls")),

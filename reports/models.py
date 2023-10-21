@@ -30,4 +30,4 @@ class Report(models.Model):
     reported_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f"{self.app.name} App report by {self.user}"
