@@ -2,7 +2,7 @@
 
 
 from rest_framework.serializers import ModelSerializer
-from appverse.apps.models import App, PlatformApp, Screenshot
+from appverse.apps.models import App, PlatformApp
 
 
 # Create your serializers here.
@@ -13,11 +13,12 @@ class AppSerializer(ModelSerializer):
         """Meta data"""
 
         model = App
-        read_only_fields = ["developer"]
+        read_only_fields = ["developer", "is_approved"]
         fields = [
             "id",
             "url",
             "developer",
+            "is_approved",
             "icon",
             "cover",
             "name",
@@ -38,9 +39,7 @@ class DetailedAppSerializer(AppSerializer):
     class Meta(AppSerializer.Meta):
         """Meta data"""
 
-        # depth = 1
-        model = App
-        read_only_fields = ["developer"]
+        read_only_fields = AppSerializer.Meta.read_only_fields + ["screenshots"]
         fields = AppSerializer.Meta.fields + [
             "website",
             "privacy_policy",
@@ -59,8 +58,11 @@ class PlatformAppSerializer(ModelSerializer):
         """Meta data"""
 
         model = PlatformApp
+        read_only_fields = ["app"]
         fields = [
             "id",
+            # "url",
+            "app",
             "platform",
             "version",
             "file",
@@ -69,13 +71,3 @@ class PlatformAppSerializer(ModelSerializer):
             "released_at",
             "updated_at",
         ]
-
-
-class ScreenshotSerializer(ModelSerializer):
-    """Screenshot serializer"""
-
-    class Meta:
-        """Meta data"""
-
-        model = Screenshot
-        fields = ["id", "platform", "image", "description", "created_at", "updated_at"]

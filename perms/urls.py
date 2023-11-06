@@ -7,7 +7,7 @@ from appverse.perms.views import PermissionViewSet
 
 
 # Create your patterns here.
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register("permissions", PermissionViewSet, "permission")
 
 

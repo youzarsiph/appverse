@@ -13,9 +13,12 @@ class DeveloperSerializer(ModelSerializer):
         """Meta data"""
 
         model = Developer
+        read_only_fields = ["user", "is_approved"]
         fields = [
             "id",
             "url",
+            "user",
+            "is_approved",
             "image",
             "name",
             "headline",

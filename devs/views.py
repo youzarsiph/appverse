@@ -1,8 +1,9 @@
 """ API endpoints for AppVerse.devs """
 
 
-from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from appverse.mixins import OwnerMixin
@@ -22,31 +23,34 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
     ordering_fields = ["name", "created_at", "updated_at"]
     filterset_fields = ["name"]
 
-    @action(methods=["get", "post"], detail=True)
+    @action(methods=["post"], detail=True)
     def approve(self, request, pk):
         """Approve developer profile"""
 
         if not request.user.is_staff:
-            return Response({"message": "Only admins can approve developer profiles"})
+            return Response(
+                {"details": "Only admins can approve developer profiles"},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
         developer = Developer.objects.get(pk=pk)
         message: str = f"Developer {developer.name} "
 
-        if developer.approved:
+        if developer.is_approved:
             message += "disapproved"
-            developer.approved = False
+            developer.is_approved = False
         else:
             message += "approved"
-            developer.approved = True
+            developer.is_approved = True
 
         developer.save()
 
-        return Response({"message": message})
+        return Response({"details": message})
 
     def get_permissions(self):
         if self.action in ["update", "partial_update", "destroy"]:
             self.permission_classes += [IsOwner]
-        elif self.action == "approve":
+        elif self.action in ["approve", "list"]:
             self.permission_classes += [IsAdminUser]
 
         return super().get_permissions()

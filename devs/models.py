@@ -12,7 +12,6 @@ User = get_user_model()
 class Developer(models.Model):
     """Developer profiles"""
 
-    # The user
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -35,7 +34,7 @@ class Developer(models.Model):
     description = models.TextField(
         help_text="Description",
     )
-    approved = models.BooleanField(
+    is_approved = models.BooleanField(
         default=False,
         help_text="Designates if the developer account is approved by AppVerse",
     )

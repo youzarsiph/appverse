@@ -12,13 +12,11 @@ User = get_user_model()
 class Review(models.Model):
     """App reviews"""
 
-    # The reviewer
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         help_text="Reviewer",
     )
-    # The reviewed app
     app = models.ForeignKey(
         "apps.App",
         on_delete=models.CASCADE,

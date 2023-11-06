@@ -1,4 +1,4 @@
-""" Data Models """
+""" Data Models for AppVerse.apps """
 
 
 from django.db import models
@@ -12,7 +12,6 @@ User = get_user_model()
 class App(models.Model):
     """Apps"""
 
-    # The developer of the app
     developer = models.ForeignKey(
         "devs.Developer",
         on_delete=models.CASCADE,
@@ -69,7 +68,7 @@ class App(models.Model):
         default=False,
         help_text="Designates if the app contains ads",
     )
-    approved = models.BooleanField(
+    is_approved = models.BooleanField(
         default=False,
         help_text="Designates if the app is approved by AppVerse",
     )
@@ -92,7 +91,6 @@ class App(models.Model):
         blank=True,
         help_text="App website",
     )
-    # Platform that the app is built for
     platforms = models.ManyToManyField(
         "platforms.Platform",
         through="PlatformApp",
@@ -112,13 +110,13 @@ class App(models.Model):
     )
     installs = models.ManyToManyField(
         User,
-        through="Install",
+        through="installs.Install",
         related_name="installs",
         help_text="App Installs",
     )
     views = models.ManyToManyField(
         User,
-        through="View",
+        through="views.View",
         related_name="views",
         help_text="App Views",
     )
@@ -185,137 +183,3 @@ class PlatformApp(models.Model):
 
     def __str__(self) -> str:
         return f"{self.app.name} App for {self.platform.name}"
-
-
-class Screenshot(models.Model):
-    """App screenshots"""
-
-    # The app
-    app = models.ForeignKey(
-        App,
-        on_delete=models.CASCADE,
-        related_name="screenshots",
-        help_text="App",
-    )
-    platform_app = models.ForeignKey(
-        PlatformApp,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        help_text="PlatformApp",
-    )
-    image = models.ImageField(
-        help_text="App screen",
-        upload_to="images/apps/screenshots/",
-    )
-    description = models.CharField(
-        max_length=256,
-        help_text="Screenshot description",
-    )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self) -> str:
-        return f"{self.app.name} Screenshot {self.pk}"
-
-
-class Install(models.Model):
-    """App installs"""
-
-    # Installed app
-    app = models.ForeignKey(
-        App,
-        on_delete=models.CASCADE,
-        help_text="Installed app",
-    )
-    # Installed by
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        help_text="Installed by",
-    )
-    count = models.PositiveIntegerField(
-        default=0,
-        help_text="Install count",
-    )
-    installed_at = models.DateTimeField(auto_now_add=True)
-    reinstalled_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        """Meta data"""
-
-        constraints = [
-            models.UniqueConstraint(
-                name="unique_install_app_user",
-                fields=["app", "user"],
-            )
-        ]
-
-    def __str__(self) -> str:
-        return f"{self.app.name} App install by {self.user}"
-
-
-class View(models.Model):
-    """App views"""
-
-    # Viewed app
-    app = models.ForeignKey(
-        App,
-        on_delete=models.CASCADE,
-        help_text="Viewed app",
-    )
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        help_text="The viewer",
-    )
-    count = models.PositiveIntegerField(
-        default=0,
-        help_text="View count",
-    )
-    viewed_at = models.DateTimeField(auto_now_add=True)
-    reviewed_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        """Meta data"""
-
-        constraints = [
-            models.UniqueConstraint(
-                name="unique_view_app_user",
-                fields=["app", "user"],
-            )
-        ]
-
-    def __str__(self) -> str:
-        return f"{self.app.name} App view by {self.user}"
-
-
-class PreOrder(models.Model):
-    """App pre-orders"""
-
-    # Viewed app
-    app = models.ForeignKey(
-        App,
-        on_delete=models.CASCADE,
-        help_text="Pre-ordered app",
-    )
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        help_text="The user that pre-ordered the app",
-    )
-    ordered_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        """Meta data"""
-
-        constraints = [
-            models.UniqueConstraint(
-                name="unique_pre_order_app_user",
-                fields=["app", "user"],
-            )
-        ]
-
-    def __str__(self) -> str:
-        return f"{self.app.name} App pre-order by {self.user}"

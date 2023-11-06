@@ -13,4 +13,5 @@ class ReportSerializer(ModelSerializer):
         """Meta data"""
 
         model = Report
-        fields = ["id", "url", "comment", "reported_at", "updated_at"]
+        read_only_fields = ["app", "user"]
+        fields = ["id", "url", "app", "user", "comment", "reported_at", "updated_at"]
