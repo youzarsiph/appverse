@@ -17,9 +17,9 @@ class ReviewViewSet(OwnerMixin, ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
-    search_fields = ["user_username", "app__name", "comment"]
+    search_fields = ["user__username", "app__name", "comment"]
     ordering_fields = ["reviewed_at", "updated_at"]
-    filterset_fields = ["user_username", "app__name"]
+    filterset_fields = ["user__username", "app__name"]
 
     def get_permissions(self):
         if self.action in ["update", "partial_update", "destroy"]:

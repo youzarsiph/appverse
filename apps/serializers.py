@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.apps """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.apps.models import App, PlatformApp
 
 
 # Create your serializers here.
-class AppSerializer(ModelSerializer):
+class AppSerializer(HyperlinkedModelSerializer):
     """App serializer"""
 
     class Meta:
@@ -51,10 +51,20 @@ class DetailedAppSerializer(AppSerializer):
             "categories",
             "permissions",
             "screenshots",
+            "reviews",
         ]
 
 
-class PlatformAppSerializer(ModelSerializer):
+class Depth1AppSerializer(DetailedAppSerializer):
+    """Depth 1 detailed app serializer"""
+
+    class Meta(DetailedAppSerializer.Meta):
+        """Meta data"""
+
+        depth = 1
+
+
+class PlatformAppSerializer(HyperlinkedModelSerializer):
     """Screenshot serializer"""
 
     class Meta:

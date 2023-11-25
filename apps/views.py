@@ -6,12 +6,12 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from appverse import permissions
 from appverse.apps import models
 from appverse.apps import serializers
 from appverse.categories.models import Category
 from appverse.devs.models import Developer
 from appverse.installs.models import Install
-from appverse.permissions import IsAppObjectOwner, IsAppOwner, IsDeveloper, IsReadOnly
 from appverse.platforms.models import Platform
 from appverse.preorders.models import PreOrder
 from appverse.tags.models import Tag
@@ -100,16 +100,18 @@ class AppViewSet(ModelViewSet):
     def get_serializer_class(self):
         """Return a serializer class based on self.action"""
 
-        if self.action in ["retrieve", "update", "partial_update"]:
+        if self.action == "retrieve":
+            self.serializer_class = serializers.Depth1AppSerializer
+        elif self.action in ["retrieve", "update", "partial_update"]:
             self.serializer_class = serializers.DetailedAppSerializer
 
         return super().get_serializer_class()
 
     def get_permissions(self):
         if self.action == "create":
-            self.permission_classes += [IsDeveloper]
+            self.permission_classes += [permissions.IsDeveloper]
         elif self.action in ["update", "partial_update", "destroy"]:
-            self.permission_classes += [IsDeveloper, IsAppOwner]
+            self.permission_classes += [permissions.IsDeveloper, permissions.IsAppOwner]
         elif self.action == "approve":
             self.permission_classes += [IsAdminUser]
 
@@ -128,7 +130,7 @@ class AppViewSet(ModelViewSet):
 class DeveloperAppsViewSet(AppViewSet):
     """Apps of a developer"""
 
-    permission_classes = [IsAuthenticated, IsReadOnly]
+    permission_classes = [IsAuthenticated, permissions.IsReadOnly]
 
     def get_queryset(self):
         """Filter queryset by developer"""
@@ -140,7 +142,7 @@ class DeveloperAppsViewSet(AppViewSet):
 class CategoryAppsViewSet(AppViewSet):
     """Apps of category"""
 
-    permission_classes = [IsAuthenticated, IsReadOnly]
+    permission_classes = [IsAuthenticated, permissions.IsReadOnly]
 
     def get_queryset(self):
         """Filter queryset by category"""
@@ -162,7 +164,7 @@ class PlatformAppsViewSet(AppViewSet):
 class TagAppsViewSet(AppViewSet):
     """Apps of a tag"""
 
-    permission_classes = [IsAuthenticated, IsReadOnly]
+    permission_classes = [IsAuthenticated, permissions.IsReadOnly]
 
     def get_queryset(self):
         """Filter queryset by tag"""
@@ -176,7 +178,11 @@ class PlatformAppViewSet(ModelViewSet):
 
     queryset = models.PlatformApp.objects.all()
     serializer_class = serializers.PlatformAppSerializer
-    permission_classes = [IsAuthenticated, IsDeveloper, IsAppObjectOwner]
+    permission_classes = [
+        IsAuthenticated,
+        permissions.IsDeveloper,
+        permissions.IsAppObjectOwner,
+    ]
     search_fields = ["app__name", "platform__name"]
     ordering_fields = ["app__name", "platform__name", "released_at", "updated_at"]
     filterset_fields = ["app__name", "platform__name"]

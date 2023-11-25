@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.devs """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.devs.models import Developer
 
 
 # Create your serializers here.
-class DeveloperSerializer(ModelSerializer):
+class DeveloperSerializer(HyperlinkedModelSerializer):
     """Developer serializer"""
 
     class Meta:

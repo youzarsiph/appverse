@@ -59,7 +59,7 @@ class App(models.Model):
     release_date = models.DateTimeField(
         null=True,
         blank=True,
-        help_text="App release date if the app is pre-orderable",
+        help_text="App release date if the app is not released yet",
     )
     contains_purchases = models.BooleanField(
         default=False,

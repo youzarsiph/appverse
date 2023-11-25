@@ -21,6 +21,7 @@ class Review(models.Model):
     app = models.ForeignKey(
         "apps.App",
         on_delete=models.CASCADE,
+        related_name="reviews",
         help_text="Reviewed app",
     )
     comment = models.CharField(

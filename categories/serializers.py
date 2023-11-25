@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.categories """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.categories.models import Category
 
 
 # Create your serializers here.
-class CategorySerializer(ModelSerializer):
+class CategorySerializer(HyperlinkedModelSerializer):
     """Screenshot serializer"""
 
     class Meta:

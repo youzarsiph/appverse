@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.platforms """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.platforms.models import Platform
 
 
 # Create your serializers here.
-class PlatformSerializer(ModelSerializer):
+class PlatformSerializer(HyperlinkedModelSerializer):
     """Platform serializer"""
 
     class Meta:

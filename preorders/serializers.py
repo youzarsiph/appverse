@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.preorders """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.preorders.models import PreOrder
 
 
 # Create your serializers here.
-class PreOrderSerializer(ModelSerializer):
+class PreOrderSerializer(HyperlinkedModelSerializer):
     """PreOrder serializer"""
 
     class Meta:

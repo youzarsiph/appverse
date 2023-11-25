@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.tags """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.tags.models import Tag
 
 
 # Create your serializers here.
-class TagSerializer(ModelSerializer):
+class TagSerializer(HyperlinkedModelSerializer):
     """Tag serializer"""
 
     class Meta:

@@ -3,10 +3,12 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from appverse.view import UserViewSet
 
 
 # Create your patterns here.
 router = DefaultRouter(trailing_slash=False)
+router.register("users", UserViewSet, "user")
 
 
 urlpatterns = [

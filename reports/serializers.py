@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.reports """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.reports.models import Report
 
 
 # Create your serializers here.
-class ReportSerializer(ModelSerializer):
+class ReportSerializer(HyperlinkedModelSerializer):
     """Report serializer"""
 
     class Meta:

@@ -1,12 +1,12 @@
 """ Serializers for AppVerse.screenshots """
 
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer
 from appverse.screenshots.models import Screenshot
 
 
 # Create your serializers here.
-class ScreenshotSerializer(ModelSerializer):
+class ScreenshotSerializer(HyperlinkedModelSerializer):
     """Screenshot serializer"""
 
     class Meta:
