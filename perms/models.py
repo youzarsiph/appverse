@@ -14,13 +14,18 @@ class Permission(models.Model):
         db_index=True,
         help_text="Permission name",
     )
-    description = models.TextField(
-        null=True,
-        blank=True,
+    description = models.CharField(
+        max_length=256,
         help_text="Permission description",
     )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last update",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date created",
+    )
 
     def __str__(self) -> str:
         return self.name

@@ -26,8 +26,14 @@ class View(models.Model):
         default=0,
         help_text="View count",
     )
-    viewed_at = models.DateTimeField(auto_now_add=True)
-    reviewed_at = models.DateTimeField(auto_now=True)
+    viewed_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date viewed",
+    )
+    reviewed_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last viewed",
+    )
 
     class Meta:
         """Meta data"""

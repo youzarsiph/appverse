@@ -18,8 +18,14 @@ class Tag(models.Model):
         max_length=256,
         help_text="Tag description",
     )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last update",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date created",
+    )
 
     def __str__(self):
         return self.name

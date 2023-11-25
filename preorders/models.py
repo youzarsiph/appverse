@@ -22,8 +22,14 @@ class PreOrder(models.Model):
         on_delete=models.CASCADE,
         help_text="The user that pre-ordered the app",
     )
-    ordered_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    ordered_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date ordered",
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last update",
+    )
 
     class Meta:
         """Meta data"""

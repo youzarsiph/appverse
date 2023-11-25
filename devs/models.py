@@ -28,18 +28,25 @@ class Developer(models.Model):
         help_text="Developer name",
     )
     headline = models.CharField(
-        max_length=256,
+        max_length=128,
         help_text="Developer headline",
     )
-    description = models.TextField(
+    description = models.CharField(
+        max_length=256,
         help_text="Description",
     )
     is_approved = models.BooleanField(
         default=False,
         help_text="Designates if the developer account is approved by AppVerse",
     )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last update",
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date registered",
+    )
 
     def __str__(self) -> str:
         return self.name

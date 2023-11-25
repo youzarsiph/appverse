@@ -26,8 +26,14 @@ class Install(models.Model):
         default=0,
         help_text="Install count",
     )
-    installed_at = models.DateTimeField(auto_now_add=True)
-    reinstalled_at = models.DateTimeField(auto_now=True)
+    installed_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date installed",
+    )
+    reinstalled_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Date reinstalled",
+    )
 
     class Meta:
         """Meta data"""

@@ -1,6 +1,7 @@
 """ Data Models """
 
 
+from turtle import ht
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -37,8 +38,14 @@ class Review(models.Model):
             (5, "5 Stars"),
         ],
     )
-    updated_at = models.DateTimeField(auto_now=True)
-    reviewed_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last update",
+    )
+    reviewed_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date reviewed",
+    )
 
     def __str__(self) -> str:
         return f"{self.app.name} App review by {self.user}"

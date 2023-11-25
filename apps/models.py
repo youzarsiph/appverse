@@ -34,10 +34,11 @@ class App(models.Model):
         help_text="App name",
     )
     headline = models.CharField(
-        max_length=256,
+        max_length=128,
         help_text="App headline",
     )
-    description = models.TextField(
+    description = models.CharField(
+        max_length=256,
         help_text="App description",
     )
     price = models.DecimalField(
@@ -47,7 +48,7 @@ class App(models.Model):
         blank=True,
         help_text="App price if it's paid",
     )
-    paid = models.BooleanField(
+    is_paid = models.BooleanField(
         default=False,
         help_text="Designates if the app is paid",
     )
@@ -60,11 +61,11 @@ class App(models.Model):
         blank=True,
         help_text="App release date if the app is pre-orderable",
     )
-    purchases = models.BooleanField(
+    contains_purchases = models.BooleanField(
         default=False,
         help_text="Designates if the app contains in-app purchases",
     )
-    ads = models.BooleanField(
+    contains_ads = models.BooleanField(
         default=False,
         help_text="Designates if the app contains ads",
     )
@@ -120,7 +121,7 @@ class App(models.Model):
         related_name="views",
         help_text="App Views",
     )
-    released_at = models.DateTimeField(
+    created_at = models.DateTimeField(
         auto_now_add=True,
         help_text="Release date",
     )

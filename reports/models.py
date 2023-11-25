@@ -26,8 +26,14 @@ class Report(models.Model):
         max_length=256,
         help_text="What is the problem?",
     )
-    updated_at = models.DateTimeField(auto_now=True)
-    reported_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Last update",
+    )
+    reported_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date reported",
+    )
 
     def __str__(self) -> str:
         return f"{self.app.name} App report by {self.user}"

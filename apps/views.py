@@ -11,7 +11,7 @@ from appverse.apps import serializers
 from appverse.categories.models import Category
 from appverse.devs.models import Developer
 from appverse.installs.models import Install
-from appverse.permissions import IsAppObjectOwner, IsAppOwner, IsDeveloper
+from appverse.permissions import IsAppObjectOwner, IsAppOwner, IsDeveloper, IsReadOnly
 from appverse.platforms.models import Platform
 from appverse.preorders.models import PreOrder
 from appverse.tags.models import Tag
@@ -29,7 +29,7 @@ class AppViewSet(ModelViewSet):
     ordering_fields = ["name", "released_at", "updated_at"]
     filterset_fields = ["name", "platforms__name", "tags__name", "categories__name"]
 
-    @action(methods=["post"], detail=True)
+    @action(methods=["post", "get"], detail=True)
     def approve(self, request, pk):
         """Approve Apps"""
 
@@ -128,6 +128,8 @@ class AppViewSet(ModelViewSet):
 class DeveloperAppsViewSet(AppViewSet):
     """Apps of a developer"""
 
+    permission_classes = [IsAuthenticated, IsReadOnly]
+
     def get_queryset(self):
         """Filter queryset by developer"""
 
@@ -137,6 +139,8 @@ class DeveloperAppsViewSet(AppViewSet):
 
 class CategoryAppsViewSet(AppViewSet):
     """Apps of category"""
+
+    permission_classes = [IsAuthenticated, IsReadOnly]
 
     def get_queryset(self):
         """Filter queryset by category"""
@@ -158,6 +162,8 @@ class PlatformAppsViewSet(AppViewSet):
 class TagAppsViewSet(AppViewSet):
     """Apps of a tag"""
 
+    permission_classes = [IsAuthenticated, IsReadOnly]
+
     def get_queryset(self):
         """Filter queryset by tag"""
 
@@ -173,7 +179,7 @@ class PlatformAppViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, IsDeveloper, IsAppObjectOwner]
     search_fields = ["app__name", "platform__name"]
     ordering_fields = ["app__name", "platform__name", "released_at", "updated_at"]
-    filterset_fields = ["app__name", "platforms__name"]
+    filterset_fields = ["app__name", "platform__name"]
 
 
 class AppPlatformsViewSet(PlatformAppViewSet):

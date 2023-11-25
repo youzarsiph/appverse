@@ -23,7 +23,7 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
     ordering_fields = ["name", "created_at", "updated_at"]
     filterset_fields = ["name"]
 
-    @action(methods=["post"], detail=True)
+    @action(methods=["post", "get"], detail=True)
     def approve(self, request, pk):
         """Approve developer profile"""
 
