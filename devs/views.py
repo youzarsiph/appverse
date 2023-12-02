@@ -1,6 +1,9 @@
 """ API endpoints for AppVerse.devs """
 
 
+from typing import Any
+from django.http import FileResponse, HttpRequest
+from django.views.generic import DetailView
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -54,3 +57,12 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
             self.permission_classes += [IsAdminUser]
 
         return super().get_permissions()
+
+
+class DeveloperImageView(DetailView):
+    """Developer profile image"""
+
+    model = Developer
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
+        return FileResponse(open(self.get_object(self.queryset).image.url[1:], "rb"))

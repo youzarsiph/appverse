@@ -1,6 +1,9 @@
 """ API endpoints for AppVerse.screenshots """
 
 
+from typing import Any
+from django.http import FileResponse, HttpRequest
+from django.views.generic import DetailView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from appverse.apps.models import App, PlatformApp
@@ -55,3 +58,12 @@ class PlatformAppScreenshotsViewSet(ScreenshotViewSet):
         app = App.objects.get(pk=self.kwargs["id"])
         platform = PlatformApp.objects.get(pk=self.kwargs["id"])
         return super().get_queryset().filter(app=app, platform_app=platform)
+
+
+class ScreenshotView(DetailView):
+    """Screenshots images"""
+
+    model = Screenshot
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
+        return FileResponse(open(self.get_object(self.queryset).image.url[1:], "rb"))

@@ -3,7 +3,12 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from appverse.apps.views import AppPlatformsViewSet, AppViewSet
+from appverse.apps.views import (
+    AppCoverView,
+    AppIconView,
+    AppPlatformsViewSet,
+    AppViewSet,
+)
 from appverse.reports.views import AppReportsViewSet
 from appverse.reviews.views import AppReviewsViewSet
 from appverse.screenshots.views import AppScreenshotsViewSet
@@ -22,6 +27,8 @@ sub_router.register("reviews", AppReviewsViewSet, "review")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("apps/<int:pk>/icon/", AppIconView.as_view()),
+    path("apps/<int:pk>/cover/", AppCoverView.as_view()),
     path(
         "apps/<int:id>/",
         include((sub_router.urls, "apps"), namespace="apps"),

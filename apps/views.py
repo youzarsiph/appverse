@@ -1,6 +1,9 @@
 """ API endpoints for AppVerse.apps """
 
 
+from typing import Any
+from django.views.generic import DetailView
+from django.http import FileResponse, HttpRequest
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -202,3 +205,21 @@ class AppPlatformsViewSet(PlatformAppViewSet):
 
         app = models.App.objects.get(pk=self.kwargs["id"])
         return super().get_queryset().filter(app=app)
+
+
+class AppIconView(DetailView):
+    """docstring"""
+
+    model = models.App
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
+        return FileResponse(open(self.get_object(self.queryset).icon.url[1:], "rb"))
+
+
+class AppCoverView(DetailView):
+    """docstring"""
+
+    model = models.App
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
+        return FileResponse(open(self.get_object(self.queryset).cover.url[1:], "rb"))

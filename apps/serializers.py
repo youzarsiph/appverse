@@ -42,7 +42,10 @@ class DetailedAppSerializer(AppSerializer):
     class Meta(AppSerializer.Meta):
         """Meta data"""
 
-        read_only_fields = AppSerializer.Meta.read_only_fields + ["screenshots"]
+        read_only_fields = AppSerializer.Meta.read_only_fields + [
+            "screenshots",
+            "reviews",
+        ]
         fields = AppSerializer.Meta.fields + [
             "website",
             "privacy_policy",
