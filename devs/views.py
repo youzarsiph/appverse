@@ -36,7 +36,7 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        developer = Developer.objects.get(pk=pk)
+        developer = self.get_object()
         message: str = f"Developer {developer.name} "
 
         if developer.is_approved:

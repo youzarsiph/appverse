@@ -30,7 +30,7 @@ class AppViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     search_fields = ["name", "headline", "description"]
     ordering_fields = ["name", "released_at", "updated_at"]
-    filterset_fields = ["name", "platforms__name", "tags__name", "categories__name"]
+    filterset_fields = ["name", "platforms", "tags", "categories"]
 
     @action(methods=["post", "get"], detail=True)
     def approve(self, request, pk):
@@ -42,7 +42,7 @@ class AppViewSet(ModelViewSet):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        app = models.App.objects.get(pk=pk)
+        app = self.get_object()
         message: str = f"App {app.name} "
 
         if app.is_approved:
@@ -60,7 +60,7 @@ class AppViewSet(ModelViewSet):
     def install(self, request, pk):
         """Install the app"""
 
-        app = models.App.objects.get(pk=pk)
+        app = self.get_object()
         install, _ = Install.objects.get_or_create(
             app=app,
             user=request.user,
@@ -74,7 +74,7 @@ class AppViewSet(ModelViewSet):
     def pre_order(self, request, pk):
         """Pre-order the app"""
 
-        app = models.App.objects.get(pk=pk)
+        app = self.get_object()
         order, _ = PreOrder.objects.get_or_create(
             app=app,
             user=request.user,
@@ -97,6 +97,9 @@ class AppViewSet(ModelViewSet):
 
     def get_queryset(self):
         """Filter queryset by approved"""
+
+        if self.request.user.is_staff:
+            return super().get_queryset()
 
         return super().get_queryset().filter(is_approved=True)
 
@@ -188,7 +191,7 @@ class PlatformAppViewSet(ModelViewSet):
     ]
     search_fields = ["app__name", "platform__name"]
     ordering_fields = ["app__name", "platform__name", "released_at", "updated_at"]
-    filterset_fields = ["app__name", "platform__name"]
+    filterset_fields = ["app", "platform"]
 
 
 class AppPlatformsViewSet(PlatformAppViewSet):

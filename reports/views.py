@@ -19,7 +19,7 @@ class ReportViewSet(OwnerMixin, ModelViewSet):
     permission_classes = [IsAuthenticated, IsAdminUser]
     search_fields = ["user__username", "app__name", "comment"]
     ordering_fields = ["reported_at", "updated_at"]
-    filterset_fields = ["user__username", "app__name"]
+    filterset_fields = ["user", "app"]
 
     def get_permissions(self):
         if self.action == "create":

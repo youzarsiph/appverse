@@ -2,6 +2,7 @@
 
 
 from django.db import models
+from django.core.validators import FileExtensionValidator
 
 
 # Create your models here.
@@ -14,9 +15,22 @@ class Screenshot(models.Model):
         related_name="screenshots",
         help_text="App",
     )
+    is_trailer = models.BooleanField(
+        default=False,
+        help_text="Designates if this item is a trailer",
+    )
     image = models.ImageField(
-        help_text="App screen",
+        null=True,
+        blank=True,
+        help_text="App screenshot",
         upload_to="images/apps/screenshots/",
+    )
+    video = models.FileField(
+        null=True,
+        blank=True,
+        help_text="Trailer video",
+        upload_to="images/apps/screenshots/trailers/",
+        validators=[FileExtensionValidator(["mp4"], "The file format is incorrect!")],
     )
     description = models.CharField(
         max_length=256,
