@@ -17,6 +17,8 @@ urlpatterns = [
     path("", include("appverse.apps.urls")),
     # Categories
     path("", include("appverse.categories.urls")),
+    # Devices
+    path("", include("appverse.devices.urls")),
     # Developers
     path("", include("appverse.devs.urls")),
     # Installs

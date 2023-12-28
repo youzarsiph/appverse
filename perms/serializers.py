@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.perms """
+""" Serializers for appverse.perms """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

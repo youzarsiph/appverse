@@ -15,7 +15,7 @@ class Developer(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        help_text="The owner of developer account",
+        help_text="Developer account owner",
     )
     image = models.ImageField(
         upload_to="images/developers/",

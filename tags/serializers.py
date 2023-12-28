@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.tags """
+""" Serializers for appverse.tags """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

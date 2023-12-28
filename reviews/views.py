@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.reviews """
+""" API endpoints for appverse.reviews """
 
 
 from rest_framework.viewsets import ModelViewSet
@@ -18,7 +18,7 @@ class ReviewViewSet(OwnerMixin, ModelViewSet):
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
     search_fields = ["user__username", "app__name", "comment"]
-    ordering_fields = ["reviewed_at", "updated_at"]
+    ordering_fields = ["id", "reviewed_at", "updated_at"]
     filterset_fields = ["user", "app"]
 
     def get_permissions(self):

@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.categories """
+""" Serializers for appverse.categories """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

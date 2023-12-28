@@ -1,4 +1,4 @@
-""" URLConf for AppVerse.categories """
+""" URLConf for appverse.categories """
 
 
 from django.urls import path, include

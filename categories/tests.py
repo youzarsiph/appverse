@@ -1,4 +1,4 @@
-""" Tests for AppVerse.categories """
+""" Tests for appverse.categories """
 
 
 from django.test import TestCase

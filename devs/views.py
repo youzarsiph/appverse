@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.devs """
+""" API endpoints for appverse.devs """
 
 
 from typing import Any
@@ -23,7 +23,7 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
     serializer_class = DeveloperSerializer
     permission_classes = [IsAuthenticated]
     search_fields = ["name", "headline", "description"]
-    ordering_fields = ["name", "created_at", "updated_at"]
+    ordering_fields = ["id", "name", "created_at", "updated_at"]
     filterset_fields = ["name"]
 
     @action(methods=["post", "get"], detail=True)

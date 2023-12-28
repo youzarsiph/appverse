@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.apps """
+""" Serializers for appverse.apps """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer
@@ -18,18 +18,17 @@ class AppSerializer(HyperlinkedModelSerializer):
             "id",
             "url",
             "developer",
+            "is_approved",
             "icon",
             "cover",
             "name",
             "headline",
             "description",
-            "price",
             "is_paid",
+            "price",
             "pre_orderable",
-            "release_date",
             "contains_purchases",
             "contains_ads",
-            "is_approved",
             "restrictions",
             "created_at",
             "updated_at",
@@ -68,7 +67,7 @@ class Depth1AppSerializer(DetailedAppSerializer):
 
 
 class PlatformAppSerializer(HyperlinkedModelSerializer):
-    """Screenshot serializer"""
+    """Platform App serializer"""
 
     class Meta:
         """Meta data"""
@@ -80,6 +79,7 @@ class PlatformAppSerializer(HyperlinkedModelSerializer):
             # "url",
             "app",
             "platform",
+            "release_date",
             "version",
             "file",
             "updates",

@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.preorders """
+""" API endpoints for appverse.preorders """
 
 
 from rest_framework.viewsets import ModelViewSet

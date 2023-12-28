@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.apps """
+""" API endpoints for appverse.apps """
 
 
 from typing import Any
@@ -29,7 +29,7 @@ class AppViewSet(ModelViewSet):
     serializer_class = serializers.AppSerializer
     permission_classes = [IsAuthenticated]
     search_fields = ["name", "headline", "description"]
-    ordering_fields = ["name", "released_at", "updated_at"]
+    ordering_fields = ["id", "name", "released_at", "updated_at"]
     filterset_fields = ["name", "platforms", "tags", "categories"]
 
     @action(methods=["post", "get"], detail=True)
@@ -164,7 +164,7 @@ class PlatformAppsViewSet(AppViewSet):
         """Filter queryset by platform"""
 
         platform = Platform.objects.get(pk=self.kwargs["id"])
-        return super().get_queryset().filter(platforms=platform)
+        return super().get_queryset().filter(platforms__platform=platform)
 
 
 class TagAppsViewSet(AppViewSet):
@@ -190,7 +190,7 @@ class PlatformAppViewSet(ModelViewSet):
         permissions.IsAppObjectOwner,
     ]
     search_fields = ["app__name", "platform__name"]
-    ordering_fields = ["app__name", "platform__name", "released_at", "updated_at"]
+    ordering_fields = ["id", "app__name", "platform__name", "released_at", "updated_at"]
     filterset_fields = ["app", "platform"]
 
 

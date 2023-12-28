@@ -1,4 +1,4 @@
-""" AppConf for AppVerse.installs """
+""" AppConf for appverse.installs """
 
 
 from django.apps import AppConfig
@@ -6,7 +6,7 @@ from django.apps import AppConfig
 
 # Create your config here.
 class InstallsConfig(AppConfig):
-    """App configuration for AppVerse.installs"""
+    """App configuration for appverse.installs"""
 
     name = "appverse.installs"
     default_auto_field = "django.db.models.BigAutoField"

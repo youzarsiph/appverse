@@ -1,4 +1,4 @@
-""" Data Models for AppVerse.apps """
+""" Data Models for appverse.apps """
 
 
 from django.db import models
@@ -56,11 +56,6 @@ class App(models.Model):
         default=False,
         help_text="Designates if the app is pre-orderable",
     )
-    release_date = models.DateTimeField(
-        null=True,
-        blank=True,
-        help_text="App release date if the app is not released yet",
-    )
     contains_purchases = models.BooleanField(
         default=False,
         help_text="Designates if the app contains in-app purchases",
@@ -93,7 +88,7 @@ class App(models.Model):
         help_text="App website",
     )
     platforms = models.ManyToManyField(
-        "platforms.Platform",
+        "platforms.Version",
         through="PlatformApp",
         help_text="App platforms",
     )
@@ -143,9 +138,14 @@ class PlatformApp(models.Model):
         help_text="The app",
     )
     platform = models.ForeignKey(
-        "platforms.Platform",
+        "platforms.Version",
         on_delete=models.CASCADE,
         help_text="The platform",
+    )
+    release_date = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="App release date if the app is not released yet",
     )
     version = models.CharField(
         max_length=8,

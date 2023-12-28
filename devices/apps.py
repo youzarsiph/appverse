@@ -1,4 +1,4 @@
-""" AppConf for appverse.devs """
+""" AppConf for appverse.devices """
 
 
 from django.apps import AppConfig
@@ -6,7 +6,7 @@ from django.apps import AppConfig
 
 # Create your config here.
 class DevsConfig(AppConfig):
-    """App configuration for appverse.devs"""
+    """App configuration for appverse.devices"""
 
-    name = "appverse.devs"
+    name = "appverse.devices"
     default_auto_field = "django.db.models.BigAutoField"

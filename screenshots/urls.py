@@ -1,4 +1,4 @@
-""" URLConf for AppVerse.screenshots """
+""" URLConf for appverse.screenshots """
 
 
 from django.urls import path, include

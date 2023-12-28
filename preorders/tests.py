@@ -1,4 +1,4 @@
-""" Tests for AppVerse.preorders """
+""" Tests for appverse.preorders """
 
 
 from django.test import TestCase

@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.tags """
+""" API endpoints for appverse.tags """
 
 
 from rest_framework.viewsets import ModelViewSet
@@ -15,5 +15,5 @@ class TagViewSet(ModelViewSet):
     serializer_class = TagSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     search_fields = ["name", "description"]
-    ordering_fields = ["name", "created_at", "updated_at"]
+    ordering_fields = ["id", "name", "created_at", "updated_at"]
     filterset_fields = ["name"]

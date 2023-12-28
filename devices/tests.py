@@ -1,4 +1,4 @@
-""" Tests for appverse.tags """
+""" Tests for appverse.devices """
 
 
 from django.test import TestCase

@@ -1,4 +1,4 @@
-""" Data Models for AppVerse.screenshots """
+""" Data Models for appverse.screenshots """
 
 
 from django.db import models

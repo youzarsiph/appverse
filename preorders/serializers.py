@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.preorders """
+""" Serializers for appverse.preorders """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

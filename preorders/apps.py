@@ -1,4 +1,4 @@
-""" AppConf for AppVerse.preorders """
+""" AppConf for appverse.preorders """
 
 
 from django.apps import AppConfig
@@ -6,7 +6,7 @@ from django.apps import AppConfig
 
 # Create your config here.
 class ScreenshotsConfig(AppConfig):
-    """App configuration for AppVerse.preorders"""
+    """App configuration for appverse.preorders"""
 
     name = "appverse.preorders"
     default_auto_field = "django.db.models.BigAutoField"

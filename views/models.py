@@ -1,4 +1,4 @@
-""" Data Models for AppVerse.views """
+""" Data Models for appverse.views """
 
 
 from django.db import models

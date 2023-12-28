@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.screenshots """
+""" Serializers for appverse.screenshots """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

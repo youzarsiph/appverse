@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.perms """
+""" API endpoints for appverse.perms """
 
 
 from rest_framework.viewsets import ModelViewSet
@@ -15,5 +15,5 @@ class PermissionViewSet(ModelViewSet):
     serializer_class = PermissionSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     search_fields = ["name", "description"]
-    ordering_fields = ["name", "created_at", "updated_at"]
+    ordering_fields = ["id", "name", "created_at", "updated_at"]
     filterset_fields = ["name"]

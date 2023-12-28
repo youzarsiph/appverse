@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.reports """
+""" API endpoints for appverse.reports """
 
 
 from rest_framework.viewsets import ModelViewSet
@@ -18,7 +18,7 @@ class ReportViewSet(OwnerMixin, ModelViewSet):
     serializer_class = ReportSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     search_fields = ["user__username", "app__name", "comment"]
-    ordering_fields = ["reported_at", "updated_at"]
+    ordering_fields = ["id", "reported_at", "updated_at"]
     filterset_fields = ["user", "app"]
 
     def get_permissions(self):

@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.reviews """
+""" Serializers for appverse.reviews """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

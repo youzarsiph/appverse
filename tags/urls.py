@@ -1,4 +1,4 @@
-""" URLConf for AppVerse.tags """
+""" URLConf for appverse.tags """
 
 
 from django.urls import path, include

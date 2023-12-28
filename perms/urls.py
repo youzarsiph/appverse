@@ -1,4 +1,4 @@
-""" URLConf for AppVerse.perms """
+""" URLConf for appverse.perms """
 
 
 from django.urls import path, include

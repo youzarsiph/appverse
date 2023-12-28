@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.screenshots """
+""" API endpoints for appverse.screenshots """
 
 
 from typing import Any

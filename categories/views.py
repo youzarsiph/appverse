@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.categories """
+""" API endpoints for appverse.categories """
 
 
 from rest_framework.viewsets import ModelViewSet
@@ -15,5 +15,5 @@ class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     search_fields = ["name", "description"]
-    ordering_fields = ["created_at", "updated_at"]
+    ordering_fields = ["id", "created_at", "updated_at"]
     filterset_fields = ["name"]

@@ -1,4 +1,4 @@
-""" URLConf for AppVerse.preorders """
+""" URLConf for appverse.preorders """
 
 
 from django.urls import path, include

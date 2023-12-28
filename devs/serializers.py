@@ -1,4 +1,4 @@
-""" Serializers for AppVerse.devs """
+""" Serializers for appverse.devs """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer

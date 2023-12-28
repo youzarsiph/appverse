@@ -1,4 +1,4 @@
-""" API endpoints for AppVerse.installs """
+""" API endpoints for appverse.installs """
 
 
 from rest_framework.viewsets import ModelViewSet

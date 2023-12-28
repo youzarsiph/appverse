@@ -1,4 +1,4 @@
-""" URLConf for AppVerse.reviews """
+""" URLConf for appverse.reviews """
 
 
 from django.urls import path, include

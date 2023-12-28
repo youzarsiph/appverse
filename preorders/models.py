@@ -1,4 +1,4 @@
-""" Data Models for AppVerse.preorders """
+""" Data Models for appverse.preorders """
 
 
 from django.db import models

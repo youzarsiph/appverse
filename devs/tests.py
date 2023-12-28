@@ -1,4 +1,4 @@
-""" Tests for AppVerse.devs """
+""" Tests for appverse.devs """
 
 
 from django.test import TestCase

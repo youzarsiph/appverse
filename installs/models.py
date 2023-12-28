@@ -1,4 +1,4 @@
-""" Data Models for AppVerse.installs """
+""" Data Models for appverse.installs """
 
 
 from django.db import models
