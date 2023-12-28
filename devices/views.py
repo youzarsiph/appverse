@@ -3,7 +3,7 @@
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from appverse.permissions import IsOwner
+from appverse.permissions import IsOwner, IsReadOnly
 from appverse.devices import models
 from appverse.devices import serializers
 
@@ -52,7 +52,7 @@ class DeviceViewSet(ModelViewSet):
 
     queryset = models.Device.objects.all()
     serializer_class = serializers.DeviceSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser, IsReadOnly]
     search_fields = ["model__name", "model__manufacturer__name"]
     ordering_fields = ["id", "created_at", "updated_at"]
     filterset_fields = ["user", "model"]

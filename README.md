@@ -30,7 +30,11 @@ Here is a list of available API endpoints.
   4. `/categories/{categoryId}/apps/{appId}`, methods: `GET` retrieves the app.
 
 - Devices:
-  1. `/devices`, methods: `GET` lists the devices. 
-  2. `/devices/{deviceId}`, methods: `GET` retrieves a device, `DELETE` deletes a device.
-  3. `/devices/{deviceId}/apps`, methods: `GET` retrieves the apps of a device.
-  4. `/devices/{deviceId}/apps/{appId}`, methods: `GET` retrieves the app.
+  1. `/manufacturers`, methods: `GET` lists the manufacturers, `POST` creates a manufacturer.
+  2. `/manufacturers/{manufacturersId}`, methods: `GET` retrieves a manufacturers, `PUT` and `PATCH` update a manufacturer, `DELETE` deletes a manufacturer.
+  3. `/manufacturers/{manufacturersId}/models`, methods: `GET` retrieves the device models of a manufacturer, `POST` creates a new model.
+  4. `/manufacturers/{manufacturersId}/models/{modelId}`, methods: `GET` retrieves the model, `PUT` and `PATCH` update a model, `DELETE` deletes a model.
+  5. `/models`, methods: `GET` retrieves the device models, `POST` creates a new model.
+  6. `/models/{modelId}`, methods: `GET` retrieves the model, `PUT` and `PATCH` update a model, `DELETE` deletes a model.
+  7. `/devices`, methods: `GET` lists the devices.
+  8. `/devices/{deviceId}`, methods: `GET` retrieves a device, `DELETE` deletes a device.
