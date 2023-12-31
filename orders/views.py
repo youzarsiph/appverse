@@ -1,24 +1,24 @@
-""" API endpoints for appverse.preorders """
+""" API endpoints for appverse.orders """
 
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from appverse.apps.models import App
 from appverse.permissions import IsOwner
-from appverse.preorders.models import PreOrder
-from appverse.preorders.serializers import PreOrderSerializer
+from appverse.orders.models import Order
+from appverse.orders.serializers import OrderSerializer
 
 
 # Create your views here.
-class PreOrderViewSet(ModelViewSet):
+class OrderViewSet(ModelViewSet):
     """Create, view, update and delete Views"""
 
-    queryset = PreOrder.objects.all()
-    serializer_class = PreOrderSerializer
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated, IsOwner]
 
 
-class UserPreOrdersViewSet(PreOrderViewSet):
+class UserOrdersViewSet(OrderViewSet):
     """Pre orders of an app"""
 
     def perform_create(self, serializer):

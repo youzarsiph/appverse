@@ -1,1 +1,0 @@
-""" AppVerse App Tags """

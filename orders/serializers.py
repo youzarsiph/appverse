@@ -1,17 +1,17 @@
-""" Serializers for appverse.preorders """
+""" Serializers for appverse.orders """
 
 
 from rest_framework.serializers import HyperlinkedModelSerializer
-from appverse.preorders.models import PreOrder
+from appverse.orders.models import Order
 
 
 # Create your serializers here.
-class PreOrderSerializer(HyperlinkedModelSerializer):
-    """PreOrder serializer"""
+class OrderSerializer(HyperlinkedModelSerializer):
+    """Order serializer"""
 
     class Meta:
         """Meta data"""
 
-        model = PreOrder
+        model = Order
         read_only_fields = ["app", "user"]
         fields = ["id", "url", "user", "app", "ordered_at", "updated_at"]

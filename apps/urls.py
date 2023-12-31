@@ -22,8 +22,8 @@ sub_router.register("reviews", AppReviewsViewSet, "review")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("apps/<int:pk>/icon/", views.AppIconView.as_view()),
-    path("apps/<int:pk>/cover/", views.AppCoverView.as_view()),
+    path("apps/<int:pk>/icon", views.AppIconView.as_view()),
+    path("apps/<int:pk>/cover", views.AppCoverView.as_view()),
     path(
         "apps/<int:id>/",
         include((sub_router.urls, "apps"), namespace="apps"),

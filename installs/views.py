@@ -3,7 +3,7 @@
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from appverse.permissions import IsOwner
+from appverse.permissions import IsOwner, IsReadOnly
 from appverse.installs.models import Install
 from appverse.installs.serializers import InstallSerializer
 
@@ -14,7 +14,7 @@ class InstallViewSet(ModelViewSet):
 
     queryset = Install.objects.all()
     serializer_class = InstallSerializer
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner, IsReadOnly]
 
 
 class UserInstallsViewSet(InstallViewSet):

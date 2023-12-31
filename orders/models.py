@@ -1,4 +1,4 @@
-""" Data Models for appverse.preorders """
+""" Data Models for appverse.orders """
 
 
 from django.db import models
@@ -9,8 +9,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class PreOrder(models.Model):
-    """App pre-orders"""
+class Order(models.Model):
+    """App orders"""
 
     app = models.ForeignKey(
         "apps.App",
@@ -20,7 +20,7 @@ class PreOrder(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        help_text="The user that pre-ordered the app",
+        help_text="The user that ordered the app",
     )
     ordered_at = models.DateTimeField(
         auto_now_add=True,
@@ -42,4 +42,4 @@ class PreOrder(models.Model):
         ]
 
     def __str__(self) -> str:
-        return f"{self.app.name} App pre-order by {self.user}"
+        return f"{self.app.name} App order by {self.user}"

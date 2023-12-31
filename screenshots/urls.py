@@ -13,5 +13,5 @@ router.register("screenshots", ScreenshotViewSet, "screenshot")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("screenshots/<int:pk>/image/", ScreenshotView.as_view()),
+    path("screenshots/<int:pk>/image", ScreenshotView.as_view()),
 ]

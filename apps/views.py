@@ -16,7 +16,7 @@ from appverse.categories.models import Category
 from appverse.devs.models import Developer
 from appverse.installs.models import Install
 from appverse.platforms.models import Platform
-from appverse.preorders.models import PreOrder
+from appverse.orders.models import Order
 from appverse.tags.models import Tag
 from appverse.views.models import View
 
@@ -75,7 +75,7 @@ class AppViewSet(ModelViewSet):
         """Pre-order the app"""
 
         app = self.get_object()
-        order, _ = PreOrder.objects.get_or_create(
+        order, _ = Order.objects.get_or_create(
             app=app,
             user=request.user,
         )

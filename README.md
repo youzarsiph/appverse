@@ -38,3 +38,56 @@ Here is a list of available API endpoints.
   6. `/models/{modelId}`, methods: `GET` retrieves the model, `PUT` and `PATCH` update a model, `DELETE` deletes a model.
   7. `/devices`, methods: `GET` lists the devices.
   8. `/devices/{deviceId}`, methods: `GET` retrieves a device, `DELETE` deletes a device.
+
+- Developers:
+  1. `/developers`, methods: `GET` lists the developers, `POST` creates a developer. 
+  2. `/developers/{developerId}`, methods: `GET` retrieves a developer, `PUT` and `PATCH` update a developer, `DELETE` deletes a developer.
+  2. `/developers/{developerId}/approve`, methods: `POST` approves a developer.
+  2. `/developers/{developerId}/image`, methods: `GET` serves the image of a developer.
+  3. `/developers/{developerId}/apps` methods: `GET` lists apps of a developer.
+  4. `/developers/{developerId}/apps/{appId}` methods: `GET` retrieves an app of a developer.
+
+- Installs:
+  1. `/installs`, methods: `GET` lists the app installs. 
+  2. `/installs/{installId}`, methods: `GET` retrieves an app install.
+
+- Orders:
+  1. `/orders`, methods: `GET` lists the orders, `POST` creates an order. 
+  2. `/orders/{orderId}`, methods: `GET` retrieves an order, `PUT` and `PATCH` update an order, `DELETE` deletes an order.
+
+- Permissions:
+  1. `/permissions`, methods: `GET` lists the permissions, `POST` creates a permission. 
+  2. `/permissions/{permissionId}`, methods: `GET` retrieves a permission, `PUT` and `PATCH` update a permission, `DELETE` deletes a permission.
+
+- Platforms:
+  1. `/platforms`, methods: `GET` lists the platforms, `POST` creates a platform. 
+  2. `/platforms/{platformId}`, methods: `GET` retrieves a platform, `PUT` and `PATCH` update a platform, `DELETE` deletes a platform.
+  3. `/platforms/{platformId}/apps` methods: `GET` lists apps of a platform.
+  4. `/platforms/{platformId}/apps/{appId}` methods: `GET` retrieves a app of a platform.
+  5. `/platforms/{platformId}/versions` methods: `GET` lists versions of a platform, `POST` creates a version. 
+  6. `/platforms/{platformId}/versions/{versionId}` methods: `GET` retrieves a version of a platform, `PUT` and `PATCH` update a version, `DELETE` deletes a version.
+  7. `/versions`, methods: `GET` lists the versions, `POST` creates a version. 
+  8. `/versions/{versionId}`, methods: `GET` retrieves a version, `PUT` and `PATCH` update a version, `DELETE` deletes a version.
+
+- Reports:
+  1. `/reports`, methods: `GET` lists the reports, `POST` creates a report. 
+  2. `/reports/{reportId}`, methods: `GET` retrieves a report, `PUT` and `PATCH` update a report, `DELETE` deletes a report.
+
+- Reviews:
+  1. `/reviews`, methods: `GET` lists the reviews, `POST` creates a review. 
+  2. `/reviews/{reviewId}`, methods: `GET` retrieves a review, `PUT` and `PATCH` update a review, `DELETE` deletes a review.
+
+- Screenshots:
+  1. `/screenshots`, methods: `GET` lists the screenshots, `POST` creates a screenshot. 
+  2. `/screenshots/{screenshotId}`, methods: `GET` retrieves a screenshot, `PUT` and `PATCH` update a screenshot, `DELETE` deletes a screenshot.
+  2. `/screenshots/{screenshotId}/image`, methods: `GET` serves the image of a screenshot.
+
+- Tags:
+  1. `/tags`, methods: `GET` lists the tags, `POST` creates a tag. 
+  2. `/tags/{tagId}`, methods: `GET` retrieves a tag, `PUT` and `PATCH` update a tag, `DELETE` deletes a tag.
+  3. `/tags/{tagId}/apps` methods: `GET` lists apps of a tag.
+  4. `/tags/{tagId}/apps/{appId}` methods: `GET` retrieves a app of a tag.
+
+- Views:
+  1. `/views`, methods: `GET` lists the app views, `POST` creates an app view. 
+  2. `/views/{viewId}`, methods: `GET` retrieves a view, `PUT` and `PATCH` update a view, `DELETE` deletes a view.

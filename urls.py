@@ -27,8 +27,8 @@ urlpatterns = [
     path("", include("appverse.perms.urls")),
     # Platforms
     path("", include("appverse.platforms.urls")),
-    # PreOrders
-    path("", include("appverse.preorders.urls")),
+    # POrders
+    path("", include("appverse.orders.urls")),
     # Reports
     path("", include("appverse.reports.urls")),
     # Reviews

@@ -16,7 +16,7 @@ sub_router.register("apps", DeveloperAppsViewSet, "app")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("developers/<int:id>/image/", DeveloperImageView.as_view()),
+    path("developers/<int:id>/image", DeveloperImageView.as_view()),
     path(
         "developers/<int:id>/",
         include((sub_router.urls, "developers"), namespace="developers"),
