@@ -1,12 +1,11 @@
 """ Serializers for appverse.perms """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from appverse.perms.models import Permission
 
 
 # Create your serializers here.
-class PermissionSerializer(HyperlinkedModelSerializer):
+class PermissionSerializer(ModelSerializer):
     """Screenshot serializer"""
 
     class Meta:

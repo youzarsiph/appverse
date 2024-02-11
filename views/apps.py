@@ -1,6 +1,5 @@
 """ AppConf for appverse.views """
 
-
 from django.apps import AppConfig
 
 

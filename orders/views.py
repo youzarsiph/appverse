@@ -1,6 +1,5 @@
 """ API endpoints for appverse.orders """
 
-
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from appverse.apps.models import App

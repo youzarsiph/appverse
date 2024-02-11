@@ -1,9 +1,5 @@
-""" API endpoints for appverse.devs """
+""" API endpoints for appverse.developers """
 
-
-from typing import Any
-from django.http import FileResponse, HttpRequest
-from django.views.generic import DetailView
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -11,8 +7,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from appverse.mixins import OwnerMixin
 from appverse.permissions import IsOwner
-from appverse.devs.models import Developer
-from appverse.devs.serializers import DeveloperSerializer
+from appverse.developers.models import Developer
+from appverse.developers.serializers import DeveloperSerializer
 
 
 # Create your views here.
@@ -30,25 +26,16 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
     def approve(self, request, pk):
         """Approve developer profile"""
 
-        if not request.user.is_staff:
-            return Response(
-                {"details": "Only admins can approve developer profiles"},
-                status=status.HTTP_403_FORBIDDEN,
-            )
-
         developer = self.get_object()
-        message: str = f"Developer {developer.name} "
-
-        if developer.is_approved:
-            message += "disapproved"
-            developer.is_approved = False
-        else:
-            message += "approved"
-            developer.is_approved = True
-
+        developer.is_approved = not developer.is_approved
         developer.save()
 
-        return Response({"details": message})
+        return Response(
+            status=status.HTTP_200_OK,
+            data={
+                "details": f"Developer {developer.name} is {'approved' if developer.is_approved else 'disapproved'}"
+            },
+        )
 
     def get_permissions(self):
         if self.action in ["update", "partial_update", "destroy"]:
@@ -57,12 +44,3 @@ class DeveloperViewSet(OwnerMixin, ModelViewSet):
             self.permission_classes += [IsAdminUser]
 
         return super().get_permissions()
-
-
-class DeveloperImageView(DetailView):
-    """Developer profile image"""
-
-    model = Developer
-
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
-        return FileResponse(open(self.get_object(self.queryset).image.url[1:], "rb"))

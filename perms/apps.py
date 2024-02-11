@@ -1,6 +1,5 @@
 """ AppConf for appverse.perms """
 
-
 from django.apps import AppConfig
 
 

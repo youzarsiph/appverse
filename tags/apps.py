@@ -1,6 +1,5 @@
 """ AppConf for appverse.tags """
 
-
 from django.apps import AppConfig
 
 

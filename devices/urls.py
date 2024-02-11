@@ -1,24 +1,26 @@
 """ URLConf for appverse.devices """
 
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from appverse.devices import views
+from appverse.devices.manufacturers.views import (
+    ManufacturerViewSet,
+    DeviceModelViewSet,
+    ManufacturerModelsViewSet,
+)
 
 
 # Create your patterns here.
 router = DefaultRouter(trailing_slash=False)
-router.register("manufacturers", views.ManufacturerViewSet, "manufacturer")
-router.register("models", views.DeviceModelViewSet, "model")
-router.register("devices", views.DeviceViewSet, "device")
+router.register("manufactures", ManufacturerViewSet, "manufacture")
+router.register("models", DeviceModelViewSet, "model")
 
-sub_router = DefaultRouter(trailing_slash=False)
-sub_router.register("models", views.ManufacturerModelsViewSet, "model")
+sub_router = DefaultRouter()
+sub_router.register("models", ManufacturerModelsViewSet, "model")
 
 urlpatterns = [
     path("", include(router.urls)),
     path(
         "manufacturers/<int:id>/",
-        include((sub_router.urls, "devices"), namespace="devices"),
+        include((sub_router.urls, "manufacturers"), namespace="manufacturers"),
     ),
 ]

@@ -1,6 +1,5 @@
 """ Data Models """
 
-
 from django.db import models
 
 
@@ -27,5 +26,15 @@ class Category(models.Model):
         help_text="Date created",
     )
 
-    def __str__(self):
+    @property
+    def app_count(self) -> int:
+        """Number of apps in a category
+
+        Returns:
+            int: number of apps in a category
+        """
+
+        return self.apps.count()
+
+    def __str__(self) -> str:
         return self.name

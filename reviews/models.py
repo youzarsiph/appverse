@@ -1,7 +1,5 @@
 """ Data Models """
 
-
-from turtle import ht
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -18,8 +16,8 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         help_text="Reviewer",
     )
-    app = models.ForeignKey(
-        "apps.App",
+    release = models.ForeignKey(
+        "releases.Release",
         on_delete=models.CASCADE,
         related_name="reviews",
         help_text="Reviewed app",
@@ -49,4 +47,4 @@ class Review(models.Model):
     )
 
     def __str__(self) -> str:
-        return f"{self.app.name} App review by {self.user}"
+        return f"{self.release.app.name}:{self.release.platform.name} App review by {self.user}"

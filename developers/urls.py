@@ -1,10 +1,9 @@
-""" URLConf for appverse.devs """
-
+""" URLConf for appverse.developers """
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from appverse.apps.views import DeveloperAppsViewSet
-from appverse.devs.views import DeveloperImageView, DeveloperViewSet
+from appverse.developers.views import DeveloperViewSet
 
 
 # Create your patterns here.
@@ -16,7 +15,6 @@ sub_router.register("apps", DeveloperAppsViewSet, "app")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("developers/<int:id>/image", DeveloperImageView.as_view()),
     path(
         "developers/<int:id>/",
         include((sub_router.urls, "developers"), namespace="developers"),

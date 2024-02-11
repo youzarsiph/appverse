@@ -1,6 +1,5 @@
 """ AppConf for appverse.reviews """
 
-
 from django.apps import AppConfig
 
 

@@ -1,6 +1,5 @@
 """ Data Models for appverse.installs """
 
-
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -22,6 +21,15 @@ class Install(models.Model):
         on_delete=models.CASCADE,
         help_text="Installed by",
     )
+    device = models.ForeignKey(
+        "devices.Device",
+        on_delete=models.CASCADE,
+        help_text="Installed on",
+    )
+    is_installed = models.BooleanField(
+        default=False,
+        help_text="Designates if the is installed on the device",
+    )
     count = models.PositiveIntegerField(
         default=0,
         help_text="Install count",
@@ -41,7 +49,7 @@ class Install(models.Model):
         constraints = [
             models.UniqueConstraint(
                 name="unique_install_app_user",
-                fields=["app", "user"],
+                fields=["app", "user", "device"],
             )
         ]
 

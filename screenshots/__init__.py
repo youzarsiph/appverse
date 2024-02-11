@@ -1,1 +1,1 @@
-""" AppVerse App Tags """
+""" AppVerse App Screenshots """

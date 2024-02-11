@@ -1,6 +1,5 @@
 """ Tests for appverse.tags """
 
-
 from django.test import TestCase
 
 

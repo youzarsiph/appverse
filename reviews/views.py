@@ -1,11 +1,10 @@
 """ API endpoints for appverse.reviews """
 
-
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from appverse.mixins import OwnerMixin
 from appverse.permissions import IsOwner
-from appverse.apps.models import App
+from appverse.releases.models import Release
 from appverse.reviews.models import Review
 from appverse.reviews.serializers import ReviewSerializer
 
@@ -17,9 +16,9 @@ class ReviewViewSet(OwnerMixin, ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
-    search_fields = ["user__username", "app__name", "comment"]
+    search_fields = ["user__username", "release__app__name", "comment"]
     ordering_fields = ["id", "reviewed_at", "updated_at"]
-    filterset_fields = ["user", "app"]
+    filterset_fields = ["user", "release__app"]
 
     def get_permissions(self):
         if self.action in ["update", "partial_update", "destroy"]:
@@ -34,14 +33,14 @@ class AppReviewsViewSet(ReviewViewSet):
     def get_queryset(self):
         """Filter queryset by app"""
 
-        app = App.objects.get(pk=self.kwargs["id"])
-        return super().get_queryset().filter(app=app)
+        release = Release.objects.get(pk=self.kwargs["id"])
+        return super().get_queryset().filter(release=release)
 
     def perform_create(self, serializer):
         """Save report with app and user"""
 
-        app = App.objects.get(pk=self.kwargs["id"])
-        serializer.save(user=self.request.user, app=app)
+        release = Release.objects.get(pk=self.kwargs["id"])
+        serializer.save(user=self.request.user, release=release)
 
 
 class UserReviewsViewSet(ReviewViewSet):

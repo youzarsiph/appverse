@@ -1,12 +1,11 @@
 """ Serializers for appverse.apps """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
-from appverse.apps.models import App, PlatformApp
+from rest_framework.serializers import ModelSerializer
+from appverse.apps.models import App
 
 
 # Create your serializers here.
-class AppSerializer(HyperlinkedModelSerializer):
+class AppSerializer(ModelSerializer):
     """App serializer"""
 
     class Meta:
@@ -24,66 +23,33 @@ class AppSerializer(HyperlinkedModelSerializer):
             "name",
             "headline",
             "description",
-            "is_paid",
-            "price",
-            "pre_orderable",
-            "contains_purchases",
-            "contains_ads",
             "restrictions",
+            "view_count",
+            "install_count",
             "created_at",
             "updated_at",
         ]
 
 
-class DetailedAppSerializer(AppSerializer):
+class RetrievedAppSerializer(AppSerializer):
     """App serializer with more details"""
 
     class Meta(AppSerializer.Meta):
         """Meta data"""
 
-        read_only_fields = AppSerializer.Meta.read_only_fields + [
-            "screenshots",
-            "reviews",
-        ]
         fields = AppSerializer.Meta.fields + [
             "website",
-            "privacy_policy",
-            "platforms",
             "tags",
+            "platforms",
             "categories",
             "permissions",
-            "screenshots",
-            "reviews",
         ]
 
 
-class Depth1AppSerializer(DetailedAppSerializer):
+class Depth1AppSerializer(RetrievedAppSerializer):
     """Depth 1 detailed app serializer"""
 
-    class Meta(DetailedAppSerializer.Meta):
+    class Meta(RetrievedAppSerializer.Meta):
         """Meta data"""
 
         depth = 1
-
-
-class PlatformAppSerializer(HyperlinkedModelSerializer):
-    """Platform App serializer"""
-
-    class Meta:
-        """Meta data"""
-
-        model = PlatformApp
-        read_only_fields = ["app"]
-        fields = [
-            "id",
-            # "url",
-            "app",
-            "platform",
-            "release_date",
-            "version",
-            "file",
-            "updates",
-            "size",
-            "released_at",
-            "updated_at",
-        ]

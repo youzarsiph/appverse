@@ -1,6 +1,5 @@
 """ Data Models for appverse.screenshots """
 
-
 from django.db import models
 from django.core.validators import FileExtensionValidator
 
@@ -9,11 +8,11 @@ from django.core.validators import FileExtensionValidator
 class Screenshot(models.Model):
     """App screenshots"""
 
-    app = models.ForeignKey(
-        "apps.App",
+    release = models.ForeignKey(
+        "releases.Release",
         on_delete=models.CASCADE,
         related_name="screenshots",
-        help_text="App",
+        help_text="App Release",
     )
     is_trailer = models.BooleanField(
         default=False,
@@ -46,4 +45,4 @@ class Screenshot(models.Model):
     )
 
     def __str__(self) -> str:
-        return f"{self.app.name} Screenshot {self.pk}"
+        return f"{self.release.app.name}:{self.release.app.name} Screenshot {self.pk}"

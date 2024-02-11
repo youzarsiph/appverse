@@ -1,12 +1,11 @@
-""" Serializers for appverse.devs """
+""" Serializers for appverse.developers """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
-from appverse.devs.models import Developer
+from rest_framework.serializers import ModelSerializer
+from appverse.developers.models import Developer
 
 
 # Create your serializers here.
-class DeveloperSerializer(HyperlinkedModelSerializer):
+class DeveloperSerializer(ModelSerializer):
     """Developer serializer"""
 
     class Meta:
@@ -23,6 +22,7 @@ class DeveloperSerializer(HyperlinkedModelSerializer):
             "name",
             "headline",
             "description",
+            "app_count",
             "created_at",
             "updated_at",
         ]

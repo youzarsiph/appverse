@@ -1,6 +1,5 @@
 """ AppConf for appverse.orders """
 
-
 from django.apps import AppConfig
 
 

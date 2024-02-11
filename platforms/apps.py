@@ -1,6 +1,5 @@
 """ AppConf for appverse.platforms """
 
-
 from django.apps import AppConfig
 
 

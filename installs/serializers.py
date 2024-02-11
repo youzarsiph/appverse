@@ -1,17 +1,26 @@
 """ Serializers for appverse.installs """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from appverse.installs.models import Install
 
 
 # Create your serializers here.
-class InstallSerializer(HyperlinkedModelSerializer):
-    """Install serializer"""
+class InstallSerializer(ModelSerializer):
+    """App Install serializer"""
 
     class Meta:
         """Meta data"""
 
         model = Install
-        read_only_fields = ["app", "user"]
-        fields = ["id", "url", "app", "user", "count", "installed_at", "reinstalled_at"]
+        read_only_fields = ["app", "user", "device"]
+        fields = [
+            "id",
+            "url",
+            "app",
+            "user",
+            "device",
+            "is_installed",
+            "count",
+            "installed_at",
+            "reinstalled_at",
+        ]

@@ -1,6 +1,5 @@
 """ Admin Site """
 
-
 from django.contrib import admin
 
 

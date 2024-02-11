@@ -1,12 +1,11 @@
 """ Serializers for appverse.orders """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from appverse.orders.models import Order
 
 
 # Create your serializers here.
-class OrderSerializer(HyperlinkedModelSerializer):
+class OrderSerializer(ModelSerializer):
     """Order serializer"""
 
     class Meta:

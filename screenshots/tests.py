@@ -1,6 +1,5 @@
 """ Tests for appverse.screenshots """
 
-
 from django.test import TestCase
 
 

@@ -1,5 +1,4 @@
-""" Data Models """
-
+""" Data Models for appverse.reports """
 
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -17,8 +16,8 @@ class Report(models.Model):
         on_delete=models.CASCADE,
         help_text="Reporter",
     )
-    app = models.ForeignKey(
-        "apps.App",
+    release = models.ForeignKey(
+        "releases.Release",
         on_delete=models.CASCADE,
         help_text="Reported app",
     )
@@ -36,4 +35,4 @@ class Report(models.Model):
     )
 
     def __str__(self) -> str:
-        return f"{self.app.name} App report by {self.user}"
+        return f"{self.release.app.name}:{self.release.platform.name} App report by {self.user}"

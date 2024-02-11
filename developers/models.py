@@ -1,5 +1,4 @@
-""" Data Models """
-
+""" Data Models for appverse.developers """
 
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -47,6 +46,16 @@ class Developer(models.Model):
         auto_now_add=True,
         help_text="Date registered",
     )
+
+    @property
+    def app_count(self) -> int:
+        """Number of apps in a category
+
+        Returns:
+            int: number of apps in a category
+        """
+
+        return self.apps.count()
 
     def __str__(self) -> str:
         return self.name

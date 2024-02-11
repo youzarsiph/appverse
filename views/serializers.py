@@ -1,12 +1,11 @@
 """ Serializers for appverse.views """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from appverse.views.models import View
 
 
 # Create your serializers here.
-class ViewSerializer(HyperlinkedModelSerializer):
+class ViewSerializer(ModelSerializer):
     """View serializer"""
 
     class Meta:

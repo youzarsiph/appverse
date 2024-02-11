@@ -1,6 +1,5 @@
 """ Data Models """
 
-
 from django.db import models
 
 
@@ -27,5 +26,14 @@ class Tag(models.Model):
         help_text="Date created",
     )
 
-    def __str__(self):
+    def app_count(self) -> int:
+        """Number of apps associated with a tag
+
+        Returns:
+            int: number of apps of a tag
+        """
+
+        return self.apps.count()
+
+    def __str__(self) -> str:
         return self.name

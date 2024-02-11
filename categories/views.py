@@ -1,6 +1,5 @@
 """ API endpoints for appverse.categories """
 
-
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from appverse.categories.models import Category

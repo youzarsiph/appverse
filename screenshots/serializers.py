@@ -1,23 +1,22 @@
 """ Serializers for appverse.screenshots """
 
-
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import ModelSerializer
 from appverse.screenshots.models import Screenshot
 
 
 # Create your serializers here.
-class ScreenshotSerializer(HyperlinkedModelSerializer):
+class ScreenshotSerializer(ModelSerializer):
     """Screenshot serializer"""
 
     class Meta:
         """Meta data"""
 
         model = Screenshot
-        read_only_fields = ["app"]
+        read_only_fields = ["release"]
         fields = [
             "id",
             "url",
-            "app",
+            "release",
             "is_trailer",
             "image",
             "video",

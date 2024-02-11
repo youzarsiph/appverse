@@ -1,6 +1,5 @@
 """ URLConf for appverse.reviews """
 
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from appverse.reviews.views import UserReviewsViewSet

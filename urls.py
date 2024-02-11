@@ -1,6 +1,5 @@
 """ URLConf for AppVerse """
 
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from appverse.view import UserViewSet
@@ -17,18 +16,22 @@ urlpatterns = [
     path("", include("appverse.apps.urls")),
     # Categories
     path("", include("appverse.categories.urls")),
+    # Developers
+    path("", include("appverse.developers.urls")),
     # Devices
     path("", include("appverse.devices.urls")),
-    # Developers
-    path("", include("appverse.devs.urls")),
     # Installs
     path("", include("appverse.installs.urls")),
+    # Orders
+    path("", include("appverse.orders.urls")),
     # Permissions
     path("", include("appverse.perms.urls")),
     # Platforms
     path("", include("appverse.platforms.urls")),
-    # POrders
-    path("", include("appverse.orders.urls")),
+    # Platform Versions
+    path("", include("appverse.platforms.versions.urls")),
+    # Releases
+    path("", include("appverse.releases.urls")),
     # Reports
     path("", include("appverse.reports.urls")),
     # Reviews

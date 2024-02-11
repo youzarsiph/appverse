@@ -1,19 +1,15 @@
 """ API endpoints for appverse.apps """
 
-
-from typing import Any
-from django.views.generic import DetailView
-from django.http import FileResponse, HttpRequest
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from appverse import permissions
-from appverse.apps import models
 from appverse.apps import serializers
+from appverse.apps.models import App
 from appverse.categories.models import Category
-from appverse.devs.models import Developer
+from appverse.developers.models import Developer
 from appverse.installs.models import Install
 from appverse.platforms.models import Platform
 from appverse.orders.models import Order
@@ -23,9 +19,9 @@ from appverse.views.models import View
 
 # Create your views here.
 class AppViewSet(ModelViewSet):
-    """Create, view, update and delete Apps"""
+    """Create, list, retrieve, update and destroy Apps"""
 
-    queryset = models.App.objects.all()
+    queryset = App.objects.all()
     serializer_class = serializers.AppSerializer
     permission_classes = [IsAuthenticated]
     search_fields = ["name", "headline", "description"]
@@ -36,25 +32,16 @@ class AppViewSet(ModelViewSet):
     def approve(self, request, pk):
         """Approve Apps"""
 
-        if not request.user.is_staff:
-            return Response(
-                {"details": "Only admins can approve developer profiles"},
-                status=status.HTTP_403_FORBIDDEN,
-            )
-
         app = self.get_object()
-        message: str = f"App {app.name} "
-
-        if app.is_approved:
-            message += "disapproved"
-            app.is_approved = False
-        else:
-            message += "approved"
-            app.is_approved = True
-
+        app.is_approved = not app.is_approved
         app.save()
 
-        return Response({"details": message})
+        return Response(
+            status=status.HTTP_200_OK,
+            data={
+                "details": f"App {app.name} is {'approved' if app.is_approved else 'disapproved'}"
+            },
+        )
 
     @action(methods=["post"], detail=True)
     def install(self, request, pk):
@@ -71,7 +58,7 @@ class AppViewSet(ModelViewSet):
         return Response({"details": f"Installing {app.name} app."})
 
     @action(methods=["post"], detail=True)
-    def pre_order(self, request, pk):
+    def order(self, request, pk):
         """Pre-order the app"""
 
         app = self.get_object()
@@ -108,8 +95,8 @@ class AppViewSet(ModelViewSet):
 
         if self.action == "retrieve":
             self.serializer_class = serializers.Depth1AppSerializer
-        elif self.action in ["retrieve", "update", "partial_update"]:
-            self.serializer_class = serializers.DetailedAppSerializer
+        elif self.action in ["update", "partial_update"]:
+            self.serializer_class = serializers.RetrievedAppSerializer
 
         return super().get_serializer_class()
 
@@ -126,11 +113,7 @@ class AppViewSet(ModelViewSet):
     def perform_create(self, serializer):
         """Save the object with owner"""
 
-        if self.request.user.developer is not None:
-            serializer.save(developer=self.request.user.developer)
-            return
-
-        return super().perform_create(serializer)
+        serializer.save(developer=self.request.user.developer)
 
 
 class DeveloperAppsViewSet(AppViewSet):
@@ -177,52 +160,3 @@ class TagAppsViewSet(AppViewSet):
 
         tag = Tag.objects.get(pk=self.kwargs["id"])
         return super().get_queryset().filter(tags=tag)
-
-
-class PlatformAppViewSet(ModelViewSet):
-    """Platform apps"""
-
-    queryset = models.PlatformApp.objects.all()
-    serializer_class = serializers.PlatformAppSerializer
-    permission_classes = [
-        IsAuthenticated,
-        permissions.IsDeveloper,
-        permissions.IsAppObjectOwner,
-    ]
-    search_fields = ["app__name", "platform__name"]
-    ordering_fields = ["id", "app__name", "platform__name", "released_at", "updated_at"]
-    filterset_fields = ["app", "platform"]
-
-
-class AppPlatformsViewSet(PlatformAppViewSet):
-    """Platforms of an app"""
-
-    def perform_create(self, serializer):
-        """Add the app before save"""
-
-        app = models.App.objects.get(pk=self.kwargs["id"])
-        serializer.save(app=app)
-
-    def get_queryset(self):
-        """Filter queryset by app"""
-
-        app = models.App.objects.get(pk=self.kwargs["id"])
-        return super().get_queryset().filter(app=app)
-
-
-class AppIconView(DetailView):
-    """docstring"""
-
-    model = models.App
-
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
-        return FileResponse(open(self.get_object(self.queryset).icon.url[1:], "rb"))
-
-
-class AppCoverView(DetailView):
-    """docstring"""
-
-    model = models.App
-
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> FileResponse:
-        return FileResponse(open(self.get_object(self.queryset).cover.url[1:], "rb"))

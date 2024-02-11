@@ -1,6 +1,5 @@
 """ URLConf for appverse.categories """
 
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from appverse.apps.views import CategoryAppsViewSet

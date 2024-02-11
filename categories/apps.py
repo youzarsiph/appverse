@@ -1,6 +1,5 @@
 """ AppConf for appverse.categories """
 
-
 from django.apps import AppConfig
 
 

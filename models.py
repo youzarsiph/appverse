@@ -1,5 +1,4 @@
-""" Data Models """
-
+""" Data Models for appverse """
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser

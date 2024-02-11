@@ -1,6 +1,5 @@
 """ Data Models for appverse.apps """
 
-
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -13,7 +12,7 @@ class App(models.Model):
     """Apps"""
 
     developer = models.ForeignKey(
-        "devs.Developer",
+        "developers.Developer",
         on_delete=models.CASCADE,
         help_text="App developer",
     )
@@ -41,29 +40,6 @@ class App(models.Model):
         max_length=256,
         help_text="App description",
     )
-    price = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        null=True,
-        blank=True,
-        help_text="App price if it's paid",
-    )
-    is_paid = models.BooleanField(
-        default=False,
-        help_text="Designates if the app is paid",
-    )
-    pre_orderable = models.BooleanField(
-        default=False,
-        help_text="Designates if the app is pre-orderable",
-    )
-    contains_purchases = models.BooleanField(
-        default=False,
-        help_text="Designates if the app contains in-app purchases",
-    )
-    contains_ads = models.BooleanField(
-        default=False,
-        help_text="Designates if the app contains ads",
-    )
     is_approved = models.BooleanField(
         default=False,
         help_text="Designates if the app is approved by AppVerse",
@@ -79,29 +55,31 @@ class App(models.Model):
             (18, "Rated 18+"),
         ],
     )
-    privacy_policy = models.TextField(
-        help_text="Privacy policy",
-    )
     website = models.URLField(
         null=True,
         blank=True,
         help_text="App website",
     )
     platforms = models.ManyToManyField(
-        "platforms.Version",
-        through="PlatformApp",
+        "versions.Version",
+        through="releases.Release",
         help_text="App platforms",
     )
     tags = models.ManyToManyField(
         "tags.Tag",
+        blank=True,
+        related_name="apps",
         help_text="App tags",
     )
     categories = models.ManyToManyField(
         "categories.Category",
+        blank=True,
+        related_name="apps",
         help_text="App Categories",
     )
     permissions = models.ManyToManyField(
         "perms.Permission",
+        blank=True,
         help_text="App Permissions",
     )
     installs = models.ManyToManyField(
@@ -125,62 +103,60 @@ class App(models.Model):
         help_text="Last update",
     )
 
-    def __str__(self):
-        return self.name
+    @property
+    def platform_count(self) -> int:
+        """
+        The number of platforms that the app released for
 
+        Returns:
+            int: number of app releases
+        """
 
-class PlatformApp(models.Model):
-    """App's executable for a platform"""
+        return self.platforms.count()
 
-    app = models.ForeignKey(
-        App,
-        on_delete=models.CASCADE,
-        help_text="The app",
-    )
-    platform = models.ForeignKey(
-        "platforms.Version",
-        on_delete=models.CASCADE,
-        help_text="The platform",
-    )
-    release_date = models.DateTimeField(
-        null=True,
-        blank=True,
-        help_text="App release date if the app is not released yet",
-    )
-    version = models.CharField(
-        max_length=8,
-        default="0.00",
-        help_text="App Version",
-    )
-    file = models.FileField(
-        upload_to="apps/",
-        help_text="App's executable",
-    )
-    updates = models.TextField(
-        help_text="What is new?",
-    )
-    size = models.FloatField(
-        default=0.0,
-        help_text="Download size in MBs",
-    )
-    released_at = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Release date",
-    )
-    updated_at = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Last update",
-    )
+    @property
+    def category_count(self) -> int:
+        """
+        The number of categories associated with the app
 
-    class Meta:
-        """Meta data"""
+        Returns:
+            int: number of categories of an app
+        """
 
-        constraints = [
-            models.UniqueConstraint(
-                name="unique_app_platform",
-                fields=["app", "platform"],
-            )
-        ]
+        return self.categories.count()
+
+    @property
+    def tag_count(self) -> int:
+        """
+        The number of tags associated with the app
+
+        Returns:
+            int: number of tags of an app
+        """
+
+        return self.tags.count()
+
+    @property
+    def view_count(self) -> int:
+        """
+        The number of app views
+
+        Returns:
+            int: number of app views
+        """
+
+        return sum([view.count for view in self.views.all()])
+
+    @property
+    def install_count(self) -> int:
+        """
+        The number of app installs
+
+        Returns:
+            int: number of app installs
+        """
+
+        return sum([install.count for install in self.installs.all()])
 
     def __str__(self) -> str:
-        return f"{self.app.name} App for {self.platform.name}"
+        return self.name

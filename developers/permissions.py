@@ -1,8 +1,7 @@
 """ Permissions """
 
-
 from rest_framework.permissions import BasePermission
-from appverse.devs.models import Developer
+from appverse.developers.models import Developer
 
 
 # Create your permissions here.
