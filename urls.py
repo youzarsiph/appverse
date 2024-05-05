@@ -28,8 +28,6 @@ urlpatterns = [
     path("", include("appverse.perms.urls")),
     # Platforms
     path("", include("appverse.platforms.urls")),
-    # Platform Versions
-    path("", include("appverse.platforms.versions.urls")),
     # Releases
     path("", include("appverse.releases.urls")),
     # Reports

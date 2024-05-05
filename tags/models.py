@@ -1,4 +1,4 @@
-""" Data Models """
+""" Data Models for appverse.tags """
 
 from django.db import models
 
@@ -26,6 +26,7 @@ class Tag(models.Model):
         help_text="Date created",
     )
 
+    @property
     def app_count(self) -> int:
         """Number of apps associated with a tag
 

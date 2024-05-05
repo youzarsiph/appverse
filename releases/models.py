@@ -13,7 +13,7 @@ class Release(models.Model):
         help_text="The app",
     )
     platform = models.ForeignKey(
-        "versions.Version",
+        "platforms.Platform",
         on_delete=models.CASCADE,
         help_text="The platform",
     )

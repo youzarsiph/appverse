@@ -13,6 +13,7 @@ class App(models.Model):
 
     developer = models.ForeignKey(
         "developers.Developer",
+        related_name="apps",
         on_delete=models.CASCADE,
         help_text="App developer",
     )
@@ -61,7 +62,7 @@ class App(models.Model):
         help_text="App website",
     )
     platforms = models.ManyToManyField(
-        "versions.Version",
+        "platforms.Platform",
         through="releases.Release",
         help_text="App platforms",
     )
@@ -145,7 +146,8 @@ class App(models.Model):
             int: number of app views
         """
 
-        return sum([view.count for view in self.views.all()])
+        # return sum([view.count for view in self.views.all()])
+        return self.views.aggregate(count=models.Sum("views", default=0))["count"]
 
     @property
     def install_count(self) -> int:
@@ -156,7 +158,8 @@ class App(models.Model):
             int: number of app installs
         """
 
-        return sum([install.count for install in self.installs.all()])
+        # return sum([install.count for install in self.installs.all()])
+        return self.installs.aggregate(count=models.Sum("installs", default=0))["count"]
 
     def __str__(self) -> str:
         return self.name

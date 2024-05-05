@@ -12,4 +12,12 @@ class PlatformSerializer(ModelSerializer):
         """Meta data"""
 
         model = Platform
-        fields = ["id", "url", "name", "description", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "url",
+            "name",
+            "version",
+            "description",
+            "created_at",
+            "updated_at",
+        ]

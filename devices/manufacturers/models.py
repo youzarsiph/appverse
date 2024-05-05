@@ -1,4 +1,4 @@
-""" Data Models """
+""" Data Models for appverse.devices.manufacturers """
 
 from django.db import models
 
@@ -35,7 +35,7 @@ class Model(models.Model):
         help_text="Device Manufacturer",
     )
     platform = models.ForeignKey(
-        "versions.Version",
+        "platforms.Platform",
         on_delete=models.CASCADE,
         help_text="Device OS",
     )

@@ -1,4 +1,4 @@
-""" Data Models """
+""" Data Models for appverse.platforms """
 
 from django.db import models
 
@@ -12,6 +12,10 @@ class Platform(models.Model):
         unique=True,
         db_index=True,
         help_text="Platform name",
+    )
+    version = models.CharField(
+        max_length=16,
+        help_text="Platform Version",
     )
     description = models.CharField(
         max_length=256,
